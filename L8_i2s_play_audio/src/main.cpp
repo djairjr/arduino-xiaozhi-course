@@ -26,7 +26,7 @@ void setup()
         .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1, // 中断优先级，如果对实时性要求高，可以调高优先级
         .dma_buf_count = 4, // DMA缓冲区数量
         .dma_buf_len = 1024, // 每一个缓冲区可以保存的音频样本数量，如果值太大，播放音频有延迟，如果值太小，可能导致音频播放卡顿
-        .tx_desc_auto_clear = true
+        .tx_desc_auto_clear = true // 数据传输完成后自动清理DMA描述符，简单方便，并且可以防止内存泄漏或DMA缓冲区溢出
     };
 
     // 定义max98357相关引脚
@@ -61,7 +61,7 @@ void setup()
     {
         // 对于读到的每一个分片，直接通过i2s_write函数写入I2S通道，最后通过数字功放模块播放出来
         bytesRead = audioFile.read(buffer, CHUNK_SIZE);
-        const esp_err_t err = i2s_write(I2S_NUM_0, buffer, bytesRead, &bytesWritten, portMAX_DELAY);
+        const esp_err_t err = i2s_write(MAX98357_I2S_NUM, buffer, bytesRead, &bytesWritten, portMAX_DELAY);
         if (err != ESP_OK || bytesWritten != bytesRead)
         {
             Serial.println("i2s_write failed");
