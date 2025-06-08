@@ -14,13 +14,13 @@
 #define MICROPHONE_I2S_LRC             2
 #define MICROPHONE_I2S_DOUT            1
 
-auto audioData = std::vector<int16_t>();
+std::vector<int16_t> audioData;
 size_t bytesRead, bytesWritten;
 volatile bool recording = false;
 
 void handle()
 {
-    recording = !digitalRead(0);
+    recording = !recording;
 }
 
 void setup()
@@ -53,7 +53,7 @@ void setup()
     i2s_set_pin(MAX98357_I2S_NUM, &max98357_gpio_config);
 
 
-    constexpr i2s_config_t i2s_config = {
+    constexpr i2s_config_t mic_i2s_config = {
         .mode = static_cast<i2s_mode_t>(I2S_MODE_MASTER | I2S_MODE_RX),
         .sample_rate = AUDIO_SAMPLE_RATE,
         .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,
@@ -64,19 +64,19 @@ void setup()
         .dma_buf_len = 1024,
         .use_apll = false
     };
-    constexpr i2s_pin_config_t pin_config = {
+    constexpr i2s_pin_config_t mic_gpio_config = {
         .bck_io_num = MICROPHONE_I2S_BCLK,
         .ws_io_num = MICROPHONE_I2S_LRC,
         .data_out_num = -1,
         .data_in_num = MICROPHONE_I2S_DOUT
     };
 
-    i2s_driver_install(MICROPHONE_I2S_NUM, &i2s_config, 0, nullptr);
-    i2s_set_pin(MICROPHONE_I2S_NUM, &pin_config);
+    i2s_driver_install(MICROPHONE_I2S_NUM, &mic_i2s_config, 0, nullptr);
+    i2s_set_pin(MICROPHONE_I2S_NUM, &mic_gpio_config);
 
     Serial.begin(9600);
 
-    attachInterrupt(0, handle, CHANGE);
+    attachInterrupt(0, handle, FALLING);
 }
 
 void loop()
@@ -84,25 +84,26 @@ void loop()
     if (recording)
     {
         Serial.println("Recording...");
-        std::vector<int16_t> buffer = std::vector<int16_t>();
-        const esp_err_t err = i2s_read(MICROPHONE_I2S_NUM, buffer.data(),
-                                       16000 * sizeof(int16_t),
+        int16_t buffer[1600];
+        const esp_err_t err = i2s_read(MICROPHONE_I2S_NUM, buffer,
+                                       1600 * sizeof(int16_t),
                                        &bytesRead, portMAX_DELAY);
         if (err != ESP_OK)
         {
             Serial.println("I2S read failed");
             ESP.restart();
         }
-        audioData.insert(audioData.end(), buffer.begin(), buffer.end());
+        audioData.insert(audioData.end(), buffer, buffer + 1600);
     }
     else
     {
         Serial.println("Playing...");
-        const esp_err_t err = i2s_write(MAX98357_I2S_NUM, audioData.data(), audioData.size() * sizeof(uint8_t),
+        const esp_err_t err = i2s_write(MAX98357_I2S_NUM, audioData.data(), audioData.size() * sizeof(int16_t),
                                         &bytesWritten, portMAX_DELAY);
-        if (err != ESP_OK || bytesWritten != bytesRead)
+        if (err != ESP_OK)
         {
             Serial.println("I2S write failed");
         }
+        audioData.clear();
     }
 }
