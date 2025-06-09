@@ -89,12 +89,12 @@ void loop()
         }
         else
         {
-            for (short & sample : buffer)
+            for (int16_t & sample : buffer)
             {
                 // 因为录制的声音音量较少(可能主板录音孔太小有影响)
                 // 所以对音频进行增益并限制在有效范围内
                 // 注意此处使用的时int32_t来计算，主要是防止溢出
-                int32_t value = static_cast<int16_t>(sample * 10.0);
+                int32_t value = static_cast<int32_t>(sample * 10.0);
                 if (value > 32767) value = 32767;
                 if (value < -32768) value = -32768;
                 sample = static_cast<int16_t>(value);
