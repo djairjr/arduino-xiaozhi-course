@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include "driver/i2s.h"
-#include <vector>
 
 #define MAX98357_I2S_NUM  I2S_NUM_0 // 使用哪个I2S口
 #define SAMPLE_RATE       16000  // 音频采样率
@@ -14,14 +13,10 @@
 #define MICROPHONE_I2S_LRC             2
 #define MICROPHONE_I2S_DOUT            1
 
-std::vector<int16_t> audioData;
-size_t bytesRead, bytesWritten;
-volatile bool recording = false;
+#define  READ_SAMPLE_COUNT 80000  // 定义录音长度，一共80K样本，对于16K采样率来说，就是录制5s
 
-void handle()
-{
-    recording = !recording;
-}
+int16_t buffer[READ_SAMPLE_COUNT];
+size_t bytesRead, bytesWritten;
 
 void setup()
 {
@@ -75,35 +70,38 @@ void setup()
     i2s_set_pin(MICROPHONE_I2S_NUM, &mic_gpio_config);
 
     Serial.begin(9600);
-
-    attachInterrupt(0, handle, FALLING);
 }
 
 void loop()
 {
-    if (recording)
+    if (Serial.available())  // 判断串口是否有数据输入，有输入输入开始录音
     {
+        Serial.readStringUntil('\n');
         Serial.println("Recording...");
-        int16_t buffer[1600];
+        // 通过i2s_read函数从I2S通道录制音频
+        // 并且保存到buffer数组中，bytesRead为最终读取的字节数
         const esp_err_t err = i2s_read(MICROPHONE_I2S_NUM, buffer,
-                                       1600 * sizeof(int16_t),
+                                       80000 * sizeof(int16_t),
                                        &bytesRead, portMAX_DELAY);
         if (err != ESP_OK)
         {
             Serial.println("I2S read failed");
-            ESP.restart();
         }
-        audioData.insert(audioData.end(), buffer, buffer + 1600);
-    }
-    else
-    {
-        Serial.println("Playing...");
-        const esp_err_t err = i2s_write(MAX98357_I2S_NUM, audioData.data(), audioData.size() * sizeof(int16_t),
-                                        &bytesWritten, portMAX_DELAY);
-        if (err != ESP_OK)
+        else
         {
-            Serial.println("I2S write failed");
+            for (short & sample : buffer)
+            {
+                // 因为录制的声音音量较少(可能主板录音孔太小有影响)
+                // 所以对音频进行增益并限制在有效范围内
+                // 注意此处使用的时int32_t来计算，主要是防止溢出
+                int32_t value = static_cast<int16_t>(sample * 10.0);
+                if (value > 32767) value = 32767;
+                if (value < -32768) value = -32768;
+                sample = static_cast<int16_t>(value);
+            }
+            // 通过i2s_write往数字功放I2S通道写入数据，进行音频播放
+            i2s_write(MAX98357_I2S_NUM, buffer, bytesRead,
+                      &bytesWritten, portMAX_DELAY);
         }
-        audioData.clear();
     }
 }
