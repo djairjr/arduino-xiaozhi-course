@@ -10,10 +10,10 @@ void count1(void* ptr)
     Serial.println("任务1开始计数");
     for (int i = 0; i < 10000; i++)
     {
-        // if (xSemaphoreTake(mutex, portMAX_DELAY) == pdTRUE)
+        // if (xSemaphoreTakeRecursive(mutex, portMAX_DELAY) == pdTRUE)
         // {
             totalCount++;
-            // xSemaphoreGive(mutex);
+            // xSemaphoreGiveRecursive(mutex);
         // }
         // vTaskDelay(pdMS_TO_TICKS(1));
     }
@@ -26,10 +26,10 @@ void count2(void* ptr)
     Serial.println("任务2开始计数");
     for (int i = 0; i < 10000; i++)
     {
-        // if (xSemaphoreTake(mutex, portMAX_DELAY) == pdTRUE)
+        // if (xSemaphoreTakeRecursive(mutex, portMAX_DELAY) == pdTRUE)
         // {
             totalCount++;
-        //     xSemaphoreGive(mutex);
+        //     xSemaphoreGiveRecursive(mutex);
         // }
         // vTaskDelay(pdMS_TO_TICKS(1));
     }

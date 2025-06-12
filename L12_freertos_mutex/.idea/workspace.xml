@@ -21,7 +21,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d646bc0c-033f-458e-8eaf-d992a697343e" name="Changes" comment="">
+    <list default="true" id="d646bc0c-033f-458e-8eaf-d992a697343e" name="Changes" comment="增加互斥信号量源码">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
@@ -125,11 +125,24 @@
       <option name="presentableId" value="Default" />
       <updated>1749717617971</updated>
       <workItem from="1749717619036" duration="11000" />
-      <workItem from="1749718035647" duration="1152000" />
+      <workItem from="1749718035647" duration="2253000" />
     </task>
+    <task id="LOCAL-00001" summary="增加互斥信号量源码">
+      <option name="closed" value="true" />
+      <created>1749719220945</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1749719220945</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="增加互斥信号量源码" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加互斥信号量源码" />
   </component>
 </project>
