@@ -7,10 +7,10 @@ TaskHandle_t printMessageTask4;
 
 void printMessage(void* ptr)
 {
-    const char* msg = static_cast<char*>(ptr);
+    Serial.println(static_cast<char*>(ptr));
     while (true)
     {
-        Serial.printf("当前任务参数: %s, 运行CPU: %d\n", msg, xPortGetCoreID());
+        Serial.printf("当前任务参数: %s, 运行CPU: %d\n", static_cast<char*>(ptr), xPortGetCoreID());
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
     // 这是第一个永久运行的任务，所以该行代码不会被运行，如果是会结束的任务，
@@ -42,14 +42,14 @@ void setup()
     vTaskDelete(printMessageTask2);
 
     xTaskCreatePinnedToCore(printMessage,
-                            "printMessage",
+                            "printMessage3",
                             2048,
                             const_cast<char*>("第3个任务参数"),
                             1,
                             &printMessageTask3,
                             0);
     xTaskCreatePinnedToCore(printMessage,
-                            "printMessage",
+                            "printMessage4",
                             2048,
                             const_cast<char*>("第4个任务参数"),
                             2,
