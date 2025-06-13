@@ -34,7 +34,7 @@ void customerTask(void* pvParameters)
         // 随机生成订单
         newOrder.customerId = ++customerCount;
         newOrder.dishName = dishes[random(0, 5)];
-        newOrder.isVip = (random(0, 10) > 7); // 30%概率是VIP
+        newOrder.isVip = (random(0, 10) >= 7); // 30%概率是VIP
         newOrder.orderTime = millis();
 
         Serial.print("顾客 #");
