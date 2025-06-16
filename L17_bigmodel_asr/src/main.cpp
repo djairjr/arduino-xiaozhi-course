@@ -3,6 +3,7 @@
 #include "ArduinoJson.h"
 #include "utils.h"
 #include "driver/i2s.h"
+#include "freertos/ringbuf.h"
 
 #define MICROPHONE_I2S_NUM             I2S_NUM_1
 #define AUDIO_SAMPLE_RATE              16000
@@ -11,15 +12,19 @@
 #define MICROPHONE_I2S_LRC             2
 #define MICROPHONE_I2S_DOUT            1
 
+#define CHUNK_SIZE 16000             // 1s音频大小
+#define TASK_COMPLETED_EVENT (1<<0)  // 表示一次语音识别任务结束的时间位
+
 // 默认头部
 constexpr byte DoubaoASRDefaultFullClientWsHeader[] = {0x11, 0x10, 0x10, 0x00};
 constexpr byte DoubaoASRDefaultAudioOnlyWsHeader[] = {0x11, 0x20, 0x10, 0x00};
 constexpr byte DoubaoASRDefaultLastAudioWsHeader[] = {0x11, 0x22, 0x10, 0x00};
 
-#define CHUNK_SIZE 80000
 int16_t buffer[CHUNK_SIZE];
+RingbufHandle_t ringBuffer; // 用来暂存录音的环形缓冲区
+EventGroupHandle_t eventGroup;
 size_t bytesRead;
-std::vector<uint8_t> _requestBuilder;
+std::vector<uint8_t> requestBuilder;
 
 WebSocketsClient client;
 
@@ -27,7 +32,7 @@ void parseResponse(const uint8_t* response)
 {
     const uint8_t messageType = response[1] >> 4;
     const uint8_t* payload = response + 4;
-    Serial.printf("message type: %d", messageType);
+    log_d("message type: %d", messageType);
     switch (messageType)
     {
     case 0b1001:
@@ -48,18 +53,20 @@ void parseResponse(const uint8_t* response)
             const String message = jsonResult["message"];
             const int32_t sequence = jsonResult["sequence"];
             const JsonArray result = jsonResult["result"];
-            Serial.printf("sequence = %d, code = %d, message = %s, result size = %d", sequence, code, message.c_str(),
-                          result.size());
+            log_d("sequence = %d, code = %d, message = %s, result size = %d", sequence, code, message.c_str(),
+                  result.size());
             if (code == 1000 && result.size() > 0)
             {
                 for (const auto& item : result)
                 {
                     String text = item["text"];
-                    Serial.printf("text = %s", text.c_str());
+                    log_d("text = %s", text.c_str());
                     // sequence小于0，表示这是最后一个数据包，直接可以打印语音识别全部内容
                     if (sequence < 0)
                     {
-                        Serial.printf("speech recognize result: %s", text.c_str());
+                        log_i("speech recognize result: %s", text.c_str());
+                        // 这是服务器返回的最后一个数据包，表示任务结束，往事件组发送事件，通知另一个任务可以结束了
+                        xEventGroupSetBits(eventGroup, TASK_COMPLETED_EVENT);
                     }
                 }
             }
@@ -73,9 +80,9 @@ void parseResponse(const uint8_t* response)
             const uint32_t messageLength = readInt32(payload);
             payload += 4;
             const std::string errorMessage = readString(payload, messageLength);
-            Serial.println("speech recognize failed: ");
-            Serial.printf("   errorCode =  %u\n", errorCode);
-            Serial.printf("errorMessage =  %s\n", errorMessage.c_str());
+            log_e("speech recognize failed: ");
+            log_e("   errorCode =  %u\n", errorCode);
+            log_e("errorMessage =  %s\n", errorMessage.c_str());
         }
     default:
         {
@@ -92,10 +99,10 @@ void eventCallback(WStype_t type, uint8_t* payload, size_t length)
     case WStype_ERROR:
         break;
     case WStype_CONNECTED:
-        Serial.println("websocket连接成功");
+        log_i("websocket连接成功");
         break;
     case WStype_DISCONNECTED:
-        Serial.println("websocket断开连接");
+        log_i("websocket断开连接");
         break;
     case WStype_TEXT:
         {
@@ -106,6 +113,141 @@ void eventCallback(WStype_t type, uint8_t* payload, size_t length)
         break;
     default:
         break;
+    }
+}
+
+void buildFullClientRequest()
+{
+    JsonDocument doc;
+    doc.clear();
+    const JsonObject app = doc["app"].to<JsonObject>();
+    app["appid"] = "4630330133";
+    app["cluster"] = "volcengine_streaming_common";
+    app["token"] = "4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW";
+    const JsonObject user = doc["user"].to<JsonObject>();
+    user["uid"] = getChipId(nullptr);
+    const JsonObject request = doc["request"].to<JsonObject>();
+    request["reqid"] = generateTaskId();
+    request["nbest"] = 1;
+    request["result_type"] = "full";
+    request["sequence"] = 1;
+    request["workflow"] = "audio_in,resample,partition,vad,fe,decode,itn,nlu_ddc,nlu_punctuate";
+    const JsonObject audio = doc["audio"].to<JsonObject>();
+    audio["format"] = "raw";
+    audio["codec"] = "raw";
+    audio["channel"] = 1;
+    audio["rate"] = AUDIO_SAMPLE_RATE;
+    String payloadStr;
+    serializeJson(doc, payloadStr);
+    uint8_t payload[payloadStr.length() + 1];
+    for (int i = 0; i < payloadStr.length(); i++)
+    {
+        payload[i] = static_cast<uint8_t>(payloadStr.charAt(i));
+    }
+    payload[payloadStr.length()] = '\0';
+    std::vector<uint8_t> payloadSize = uint32ToUint8Array(payloadStr.length());
+    requestBuilder.clear();
+    // 先写入报头（四字节）
+    requestBuilder.insert(requestBuilder.end(), DoubaoASRDefaultFullClientWsHeader,
+                          DoubaoASRDefaultFullClientWsHeader + sizeof(DoubaoASRDefaultFullClientWsHeader));
+    // 写入payload长度（四字节）
+    requestBuilder.insert(requestBuilder.end(), payloadSize.begin(), payloadSize.end());
+    // 写入payload内容
+    requestBuilder.insert(requestBuilder.end(), payload, payload + payloadStr.length());
+}
+
+void buildAudioOnlyRequest(uint8_t* audio, const size_t size, const bool lastPacket)
+{
+    requestBuilder.clear();
+    std::vector<uint8_t> payloadLength = uint32ToUint8Array(size);
+
+    if (lastPacket)
+    {
+        // 先写入报头（四字节）
+        requestBuilder.insert(requestBuilder.end(), DoubaoASRDefaultLastAudioWsHeader,
+                              DoubaoASRDefaultLastAudioWsHeader + sizeof(DoubaoASRDefaultLastAudioWsHeader));
+    }
+    else
+    {
+        // 先写入报头（四字节）
+        requestBuilder.insert(requestBuilder.end(), DoubaoASRDefaultAudioOnlyWsHeader,
+                              DoubaoASRDefaultAudioOnlyWsHeader + sizeof(DoubaoASRDefaultAudioOnlyWsHeader));
+    }
+
+    // 写入payload长度（四字节）
+    requestBuilder.insert(requestBuilder.end(), payloadLength.begin(), payloadLength.end());
+    // 写入payload内容
+    requestBuilder.insert(requestBuilder.end(), audio, audio + size);
+}
+
+void asr(uint8_t* buffer, const size_t size, const bool firstPacket, const bool lastPacket)
+{
+    log_d("开始语音识别");
+    if (firstPacket)
+    {
+        while (!client.isConnected())
+        {
+            // 如果websocket没有连接，持续调用websocket的loop函数（函数内部会有连接的创建逻辑），知道连接成功才继续往后
+            client.loop();
+            vTaskDelay(1);
+        }
+        // 构建第一个语音识别请求的相关报文头，可以参考官方文档：https://www.volcengine.com/docs/6561/80818
+        buildFullClientRequest();
+        // 第一个数据包发往服务器，开启识别任务
+        if (!client.sendBIN(requestBuilder.data(), requestBuilder.size()))
+        {
+            log_d("send speech recognize full client request packet failed");
+        }
+        // 给loop一个执行的机会，接收可能的服务器端下发的数据
+        client.loop();
+    }
+    // 构建语音数据包
+    buildAudioOnlyRequest(buffer, size, lastPacket);
+    if (!client.sendBIN(requestBuilder.data(), requestBuilder.size()))
+    {
+        log_e("send speech recognize audio only packet failed");
+    }
+    // 继续给loop函数执行的机会
+    client.loop();
+    if (lastPacket)
+    {
+        // 如果已经往服务器发送了最后一个语音识别数据包，则等待任务结束
+        while ((xEventGroupWaitBits(eventGroup, TASK_COMPLETED_EVENT,
+                                    false, true, pdMS_TO_TICKS(1)) & TASK_COMPLETED_EVENT) == 0)
+        {
+            // 持续调用loop，接收服务器下发的数据
+            client.loop();
+            vTaskDelay(1);
+        }
+        // 任务完成，关闭websocket连接
+        client.disconnect();
+    }
+}
+
+void consumeRingBuffer(void* ptr)
+{
+    size_t bytesRead;
+    bool firstPacket = true; // 流式语音识别，用这个表示这是识别的第一个语音包
+    while (true)
+    {
+        void* buffer = xRingbufferReceive(ringBuffer, &bytesRead, pdMS_TO_TICKS(1000));
+        if (buffer != nullptr)
+        {
+            auto* audioData = static_cast<uint8_t*>(buffer);
+            asr(audioData, bytesRead, firstPacket, false);
+            if (firstPacket)
+            {
+                firstPacket = false;
+            }
+        }
+        else if (!firstPacket)
+        {
+            // 模拟最后一个空报文，没有任何音频数据，主要作用是让服务端结束一轮识别任务，返回最终的识别内容
+            uint8_t fakeAudio[1] = {0};
+            asr(fakeAudio, 1, firstPacket, true);
+            firstPacket = true;
+        }
+        vTaskDelay(pdMS_TO_TICKS(1));
     }
 }
 
@@ -134,100 +276,24 @@ void setup()
     i2s_set_pin(MICROPHONE_I2S_NUM, &pin_config);
     i2s_zero_dma_buffer(MICROPHONE_I2S_NUM);
 
+    WiFi.mode(WIFI_MODE_STA);
+    WiFi.begin("ChinaNet-GdPt", "19910226");
+    log_i("正在联网");
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        log_d(".");
+        vTaskDelay(1000);
+    }
+    log_i("联网成功");
+
     // 这里的4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW需要换成你自己的access token
     client.setExtraHeaders("Authorization: Bearer; 4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW");
     client.beginSSL("openspeech.bytedance.com", 443, "/api/v2/asr");
-    client.onEvent([this](WStype_t type, uint8_t* payload, size_t length)
-    {
-        eventCallback(type, payload, length);
-    });
-}
+    client.onEvent(eventCallback);
 
-
-void buildFullClientRequest() {
-    JsonDocument doc;
-    doc.clear();
-    const JsonObject app = doc["app"].to<JsonObject>();
-    app["appid"] = "4630330133";
-    app["cluster"] = "volcengine_streaming_common";
-    app["token"] = "4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW";
-    const JsonObject user = doc["user"].to<JsonObject>();
-    user["uid"] = getChipId(nullptr);
-    const JsonObject request = doc["request"].to<JsonObject>();
-    request["reqid"] = generateTaskId();
-    request["nbest"] = 1;
-    request["result_type"] = "full";
-    request["sequence"] = 1;
-    request["workflow"] = "audio_in,resample,partition,vad,fe,decode,itn,nlu_ddc,nlu_punctuate";
-    const JsonObject audio = doc["audio"].to<JsonObject>();
-    audio["format"] = "raw";
-    audio["codec"] = "raw";
-    audio["channel"] = 1;
-    audio["rate"] = AUDIO_SAMPLE_RATE;
-    String payloadStr;
-    serializeJson(doc, payloadStr);
-    uint8_t payload[payloadStr.length() + 1];
-    for (int i = 0; i < payloadStr.length(); i++) {
-        payload[i] = static_cast<uint8_t>(payloadStr.charAt(i));
-    }
-    payload[payloadStr.length()] = '\0';
-    std::vector<uint8_t> payloadSize = uint32ToUint8Array(payloadStr.length());
-    _requestBuilder.clear();
-    // 先写入报头（四字节）
-    _requestBuilder.insert(_requestBuilder.end(), DoubaoASRDefaultFullClientWsHeader,
-                           DoubaoASRDefaultFullClientWsHeader + sizeof(DoubaoASRDefaultFullClientWsHeader));
-    // 写入payload长度（四字节）
-    _requestBuilder.insert(_requestBuilder.end(), payloadSize.begin(), payloadSize.end());
-    // 写入payload内容
-    _requestBuilder.insert(_requestBuilder.end(), payload, payload + payloadStr.length());
-}
-
-void buildAudioOnlyRequest(uint8_t *audio, const size_t size, const bool lastPacket) {
-    _requestBuilder.clear();
-    std::vector<uint8_t> payloadLength = uint32ToUint8Array(size);
-
-    if (lastPacket) {
-        // 先写入报头（四字节）
-        _requestBuilder.insert(_requestBuilder.end(), DoubaoASRDefaultLastAudioWsHeader,
-                               DoubaoASRDefaultLastAudioWsHeader + sizeof(DoubaoASRDefaultLastAudioWsHeader));
-    } else {
-        // 先写入报头（四字节）
-        _requestBuilder.insert(_requestBuilder.end(), DoubaoASRDefaultAudioOnlyWsHeader,
-                               DoubaoASRDefaultAudioOnlyWsHeader + sizeof(DoubaoASRDefaultAudioOnlyWsHeader));
-    }
-
-    // 写入payload长度（四字节）
-    _requestBuilder.insert(_requestBuilder.end(), payloadLength.begin(), payloadLength.end());
-    // 写入payload内容
-    _requestBuilder.insert(_requestBuilder.end(), audio, audio + size);
-}
-
-void asr(int16_t* buffer, bool firstPacket, bool lastPacket) {
-    Serial.println("开始语音识别");
-    if (firstPacket) {
-        while (!client.isConnected()) {
-            client.loop();
-            vTaskDelay(1);
-        }
-        buildFullClientRequest();
-        if (!client.sendBIN(_requestBuilder.data(), _requestBuilder.size())) {
-            Serial.printf("send speech recognize full client request packet failed");
-        }
-        loop();
-    }
-    buildAudioOnlyRequest(task.data.data(), task.data.size(), task.lastPacket);
-    if (!client.sendBIN(_requestBuilder.data(), _requestBuilder.size())) {
-        log_e("send speech recognize audio only packet failed");
-    }
-    loop();
-    if (task.lastPacket) {
-        while ((xEventGroupWaitBits(_eventGroup, STT_TASK_COMPLETED_EVENT,
-                                    false, true, pdMS_TO_TICKS(1)) & STT_TASK_COMPLETED_EVENT) == 0) {
-            loop();
-            vTaskDelay(1);
-                                    }
-        disconnect();
-    }
+    ringBuffer = xRingbufferCreate(80000 * sizeof(int16_t), RINGBUF_TYPE_BYTEBUF);
+    eventGroup = xEventGroupCreate();
+    xTaskCreate(consumeRingBuffer, "consumeRingBuffer", 32768, nullptr, 1, nullptr);
 }
 
 void loop()
@@ -235,11 +301,21 @@ void loop()
     if (Serial.available() > 0)
     {
         Serial.readStringUntil('\n');
-
-        esp_err_t err = i2s_read(MICROPHONE_I2S_NUM, buffer, CHUNK_SIZE * sizeof(int16_t), &bytesRead, portMAX_DELAY);
-        if (err == ESP_OK)
+        log_i("开始录音，请说话，持续时间10s...");
+        // 录制10次，每次录制1秒钟的音频
+        for (int i = 0; i < 10; i++)
         {
-
+            const esp_err_t err = i2s_read(MICROPHONE_I2S_NUM,
+                                           buffer,
+                                           CHUNK_SIZE * sizeof(int16_t), // 每次录取一秒音频
+                                           &bytesRead,
+                                           portMAX_DELAY);
+            if (err == ESP_OK)
+            {
+                // 录到的音频，直接发往环形缓冲区
+                xRingbufferSend(ringBuffer, buffer, bytesRead, portMAX_DELAY);
+            }
         }
+        log_i("录音结束");
     }
 }
