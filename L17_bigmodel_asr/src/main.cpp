@@ -126,19 +126,23 @@ void buildFullClientRequest()
     app["appid"] = "4630330133";
     app["cluster"] = "volcengine_streaming_common";
     app["token"] = "4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW";
+
     const JsonObject user = doc["user"].to<JsonObject>();
     user["uid"] = getChipId(nullptr);
+
     const JsonObject request = doc["request"].to<JsonObject>();
     request["reqid"] = generateTaskId();
     request["nbest"] = 1;
-    request["result_type"] = "full";
+    // request["result_type"] = "full";
     request["sequence"] = 1;
     request["workflow"] = "audio_in,resample,partition,vad,fe,decode,itn,nlu_ddc,nlu_punctuate";
+
     const JsonObject audio = doc["audio"].to<JsonObject>();
     audio["format"] = "raw";
     audio["codec"] = "raw";
     audio["channel"] = 1;
     audio["rate"] = AUDIO_SAMPLE_RATE;
+
     String payloadStr;
     serializeJson(doc, payloadStr);
     uint8_t payload[payloadStr.length() + 1];
