@@ -8,6 +8,7 @@ void setup()
 {
     Serial.begin(115200);
     WiFiClass::mode(WIFI_MODE_STA);
+    // 这里的WiFi名称和密码修改成你自己的
     WiFi.begin("ChinaNet-GdPt", "19910226");
     ESP_LOGI(TAG, "正在联网");
     while (WiFiClass::status() != WL_CONNECTED)
@@ -23,7 +24,8 @@ void chat(const String& botId, const String& query, const String& conversationId
     ESP_LOGI(TAG, "发起对话: %s", query.c_str());
     HTTPClient http;
     http.begin("https://api.coze.cn/v3/chat?conversation_id=" + conversationId);
-    http.addHeader("Authorization", "Bearer pat_lLEZEnOM9UpCscnG0UJrw4n2GuEgekibMiJdVyoQ824Jaru1pZkO3IhzVmWSifXG");
+    // 这里Bearer后面的token修改成你自己的Coze平台的token，可在https://www.coze.cn/open/oauth/pats这里获取
+    http.addHeader("Authorization", "Bearer pat_xxxx");
     http.addHeader("Content-Type", "application/json");
     JsonDocument requestBody;
     requestBody.clear();
@@ -45,6 +47,7 @@ void chat(const String& botId, const String& query, const String& conversationId
         String line = "";
         String lastEvent;
         String output = "";
+        // 持续读取流式输出
         while (stream->connected() || stream->available())
         {
             // 等待数据流有新的数据可读
