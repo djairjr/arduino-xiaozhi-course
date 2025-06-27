@@ -1,5 +1,6 @@
 #ifndef DOUBAOASR_H
 #define DOUBAOASR_H
+
 #include <vector>
 #include <Arduino.h>
 #include <freertos/ringbuf.h>
@@ -21,25 +22,35 @@ constexpr byte DoubaoASRDefaultFullClientWsHeader[] = {0x11, 0x10, 0x10, 0x00};
 constexpr byte DoubaoASRDefaultAudioOnlyWsHeader[] = {0x11, 0x20, 0x10, 0x00};
 constexpr byte DoubaoASRDefaultLastAudioWsHeader[] = {0x11, 0x22, 0x10, 0x00};
 
-class DoubaoASR : public WebSocketsClient
-{
+class DoubaoASR : public WebSocketsClient {
 public:
-    DoubaoASR(const CozeAgent& agent);
+    DoubaoASR(CozeAgent *agent);
+
     void begin();
-    void asr(uint8_t* buffer, size_t size, bool firstPacket, bool lastPacket);
+
+    void asr(uint8_t *buffer, size_t size, bool firstPacket, bool lastPacket);
+
     void buildFullClientRequest();
-    void buildAudioOnlyRequest(uint8_t* audio, size_t size, bool lastPacket);
-    void parseResponse(const uint8_t* response);
-    void eventCallback(WStype_t type, const uint8_t* payload, size_t length);
-    void consumeRingBuffer(void* ptr);
+
+    void buildAudioOnlyRequest(uint8_t *audio, size_t size, bool lastPacket);
+
+    void parseResponse(const uint8_t *response);
+
+    void eventCallback(WStype_t type, const uint8_t *payload, size_t length);
+
+    void consumeRingBuffer(void *ptr);
+
     RingbufHandle_t getRingBuffer() const;
 
+    void connect();
+
 private:
-    const char* TAG = "DoubaoASR";
+    const char *TAG = "DoubaoASR";
     RingbufHandle_t _ringBuffer = nullptr; // 用来暂存录音的环形缓冲区
     EventGroupHandle_t _eventGroup = nullptr;
     std::vector<uint8_t> _requestBuilder;
-    CozeAgent _cozeAgent;
+    CozeAgent *_cozeAgent;
+    volatile bool _isConnecting = false;
 };
 
 #endif //DOUBAOASR_H
