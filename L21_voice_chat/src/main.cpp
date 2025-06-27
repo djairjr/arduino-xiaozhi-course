@@ -19,7 +19,8 @@ void setup()
     Serial.begin(9600);
 
     WiFiClass::mode(WIFI_MODE_STA);
-    WiFi.begin("ChinaNet-GdPt", "19910226");
+//    WiFi.begin("ChinaNet-GdPt", "19910226");
+    WiFi.begin("Xiaomi_E15A", "19910226");
     ESP_LOGI(TAG, "正在联网");
     while (WiFiClass::status() != WL_CONNECTED)
     {
@@ -30,7 +31,8 @@ void setup()
     // 启用tts语音合成任务
     tts.begin();
     // 启动asr语音识别任务
-    asr.begin();
+    tts.tts("你好啊");
+//    asr.begin();
 }
 
 void loop()

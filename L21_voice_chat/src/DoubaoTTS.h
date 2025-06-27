@@ -17,7 +17,7 @@ public:
     void begin();
     String buildFullClientRequest(const String& text);
     void parseResponse(const uint8_t* response) const;
-    void eventCallback(WStype_t type, uint8_t* payload, size_t length) const;
+    void eventCallback(WStype_t type, uint8_t* payload, size_t length);
     void tts(const String& text);
     void playAudio(void* ptr) const;
 

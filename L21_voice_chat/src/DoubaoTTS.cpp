@@ -38,6 +38,7 @@ void DoubaoTTS::begin()
 
     setExtraHeaders("Authorization: Bearer; 4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW");
     beginSSL("openspeech.bytedance.com", 443, "/api/v1/tts/ws_binary");
+
     // 如下使用了C++中的lambda表达式语法
     onEvent([this](WStype_t type, uint8_t* payload, size_t length)
     {
@@ -103,7 +104,7 @@ void DoubaoTTS::parseResponse(const uint8_t* response) const
     }
 }
 
-void DoubaoTTS::eventCallback(const WStype_t type, uint8_t* payload, const size_t length) const
+void DoubaoTTS::eventCallback(const WStype_t type, uint8_t* payload, const size_t length)
 {
     ESP_LOGE(TAG, "Received unexpected request: %d", type);
     switch (type)
