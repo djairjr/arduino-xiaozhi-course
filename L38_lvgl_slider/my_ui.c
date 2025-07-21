@@ -78,7 +78,7 @@ void show_ui()
     // lv_slider_set_mode(slider, LV_SLIDER_MODE_NORMAL); // 普通模式，只有一个滑块，调整一个绝对数值
     // lv_slider_set_mode(slider, LV_SLIDER_MODE_SYMMETRICAL); // 对称模式，相对于中心点0的偏移量
     lv_slider_set_mode(slider, LV_SLIDER_MODE_RANGE); // 范围模式，两个滑块，可以分别调整左右值
-    lv_slider_set_left_value(slider, -20, LV_ANIM_ON);  // 左值（先设置为范围模式才会生效）
+    lv_slider_set_left_value(slider, -20, LV_ANIM_ON);  // 设置初始左值（先设置为范围模式才会生效）
 
     // 为滑块添加事件回调函数
     lv_obj_add_event_cb(slider, slider_event_callback, LV_EVENT_VALUE_CHANGED, 0);
