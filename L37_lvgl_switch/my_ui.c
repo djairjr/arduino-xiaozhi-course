@@ -4,7 +4,7 @@
 #include "my_ui.h"
 #include "lvgl.h"
 
-lv_obj_t* button;
+static lv_obj_t* button;
 
 void sw_event_callback(lv_event_t* e)
 {

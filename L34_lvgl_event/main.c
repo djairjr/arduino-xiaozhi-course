@@ -63,7 +63,7 @@ int SDL_main(int argc, char** argv)
 
     /*Initialize the display, and the input devices*/
     // hardware abstract layer
-    hal_init(480, 320);
+    hal_init(240, 320);
 
     show_ui();
 
