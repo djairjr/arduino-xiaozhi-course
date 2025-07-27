@@ -71,7 +71,7 @@ void show_ui()
     lv_obj_align_to(add_button, list, LV_ALIGN_OUT_BOTTOM_RIGHT, -5, 5);
     lv_obj_align_to(label, list, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
 
-    // https://www.w3cschool.cn/tools/index?name=cpicker
+    //颜色拾色器： https://www.w3cschool.cn/tools/index?name=cpicker
     lv_obj_set_style_bg_color(delete_button, lv_color_hex(0Xff3300), 0);
     lv_obj_set_style_bg_color(add_button, lv_color_hex(0X00cc66), 0);
 
