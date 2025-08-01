@@ -43,6 +43,8 @@ void show_ui()
     lv_spinbox_set_range(spinbox, 0, 100);
 
     // 设置增长步长为1，实际是0.1
+    // 主要：步长只在非编辑模式（不手动改变指针）时生效
+    // 如果手动点击了spinbox上的数字指针，步长将变成1
     lv_spinbox_set_step(spinbox, 2);
 
     // 设置当前值为50，实际是5.0
