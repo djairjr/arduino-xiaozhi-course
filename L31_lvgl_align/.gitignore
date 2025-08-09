@@ -8,4 +8,3 @@ demo
 /.tracecompass
 build/
 bin/
-cmake/
