@@ -6,6 +6,7 @@ void roller_event_callback(lv_event_t *e) {
     if (code == LV_EVENT_VALUE_CHANGED) {
         char buf[32];
         const lv_obj_t *roller = lv_event_get_target(e);
+        // lv_roller_get_selected(roller);
         lv_roller_get_selected_str(roller, buf, sizeof(buf));
         LV_LOG_WARN("Clicked, ID: %d Text: %s\n", lv_roller_get_selected(roller), buf);
     }
@@ -29,7 +30,7 @@ void show_ui() {
     lv_roller_set_selected_str(roller, "Yellow", LV_ANIM_OFF);
 
     // 设置显示多少个条目（会自动设置对应的高度）
-    lv_roller_set_visible_row_count(roller, 5);
+    lv_roller_set_visible_row_count(roller, 3);
 
     lv_obj_add_event_cb(roller, roller_event_callback, LV_EVENT_ALL, NULL);
 }
