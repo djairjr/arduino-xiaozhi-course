@@ -13,6 +13,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
+# 启用控制台日志输出
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--subsystem,console")
+
 set(SDL2_DIR D:/mingw64/x86_64-w64-mingw32/lib/cmake/SDL2)
 find_package(SDL2 REQUIRED SDL2)
 

@@ -1,23 +1,35 @@
 #include "my_ui.h"
 #include "lvgl.h"
 
-void show_ui()
-{
-    lv_obj_t* spinbox = lv_spinbox_create(lv_scr_act());
-    lv_obj_set_size(spinbox, 80, 40);
-    lv_obj_center(spinbox);
+void roller_event_callback(lv_event_t *e) {
+    const lv_event_code_t code = lv_event_get_code(e);
+    if (code == LV_EVENT_VALUE_CHANGED) {
+        char buf[32];
+        const lv_obj_t *roller = lv_event_get_target(e);
+        lv_roller_get_selected_str(roller, buf, sizeof(buf));
+        LV_LOG_WARN("Clicked, ID: %d Text: %s\n", lv_roller_get_selected(roller), buf);
+    }
+}
 
-    // 设置文字居中显示
-    lv_obj_set_style_text_align(spinbox, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
+void show_ui() {
+    lv_obj_t *roller = lv_roller_create(lv_scr_act());
+    lv_obj_set_width(roller, lv_display_get_horizontal_resolution(NULL));
+    lv_obj_center(roller);
 
-    // 设置数字总位数为3，其中整数部分为2位，有一位小数
-    lv_spinbox_set_digit_format(spinbox, 3, 2);
-    // 设置数据范围0~100，有一位小数，所以其实数值范围是[0, 10.0]
-    lv_spinbox_set_range(spinbox, 0, 100);
-    // 设置增长步长为1，实际是0.1
-    lv_spinbox_set_step(spinbox, 2);
-    // 设置当前值为50，实际是5.0
-    lv_spinbox_set_value(spinbox, 50);
+    // 设置选项
+    lv_roller_set_options(roller, "Here With You\nYellow\nHello\nSmile\nDiamonds", LV_ROLLER_MODE_NORMAL);
 
-    lv_obj_set_style_bg_color(spinbox, lv_color_hex(0x33cccc), LV_PART_MAIN);
+    // 设置条目文字对齐方式为居中对齐
+    lv_obj_set_style_text_align(roller, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
+
+    // 设置默认被选中的条目的索引编号，从0开始
+    // lv_roller_set_selected(roller, 2, LV_ANIM_ON);
+
+    // 设置默认被选中的条目的文本
+    lv_roller_set_selected_str(roller, "Yellow", LV_ANIM_OFF);
+
+    // 设置显示多少个条目（会自动设置对应的高度）
+    lv_roller_set_visible_row_count(roller, 5);
+
+    lv_obj_add_event_cb(roller, roller_event_callback, LV_EVENT_ALL, NULL);
 }
