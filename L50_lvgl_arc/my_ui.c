@@ -33,10 +33,10 @@ void show_ui()
     lv_obj_set_style_arc_width(arc, 15, LV_PART_MAIN);
     // 设置圆弧被选中部分的线条的宽度为15
     lv_obj_set_style_arc_width(arc, 15, LV_PART_INDICATOR);
-    // 设置圆弧主体部分颜色为0x003d4d
-    lv_obj_set_style_arc_color(arc, lv_color_hex(0x003d4d), LV_PART_MAIN);
-    // 设置圆弧指示器部分颜色为0x00cc00
-    lv_obj_set_style_arc_color(arc, lv_color_hex(0x00cc00), LV_PART_INDICATOR);
+    // 设置圆弧主体部分颜色为0xe1e1d1
+    lv_obj_set_style_arc_color(arc, lv_color_hex(0xe1e1d1), LV_PART_MAIN);
+    // 设置圆弧指示器部分颜色为0x1ab2ff
+    lv_obj_set_style_arc_color(arc, lv_color_hex(0x1ab2ff), LV_PART_INDICATOR);
     // 设置圆弧中间的操作杆的颜色为0xff0000
     lv_obj_set_style_bg_color(arc, lv_color_hex(0xff0000), LV_PART_KNOB);
 
