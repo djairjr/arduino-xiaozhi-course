@@ -7,7 +7,7 @@ static uint32_t pressed_point;
 static lv_chart_series_t* temp_series; // 温度曲线
 static lv_chart_series_t* hum_series; // 湿度曲线
 
-void value_changed_event_cb(lv_event_t* e)
+void chart_event_callback(lv_event_t* e)
 {
     const lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_VALUE_CHANGED)
@@ -102,5 +102,5 @@ void show_ui()
     }
 
     // 点击图表上的点时，显示指示线
-    lv_obj_add_event_cb(chart, value_changed_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(chart, chart_event_callback, LV_EVENT_VALUE_CHANGED, NULL);
 }
