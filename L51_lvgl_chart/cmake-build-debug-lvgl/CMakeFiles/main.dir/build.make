@@ -43,19 +43,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2025.1\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2025.1.1\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2025.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2025.1.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = F:\code\arduino-xiaozhi-course\L51_lvgl_chart
+CMAKE_SOURCE_DIR = E:\arduino-xiaozhi-course\L51_lvgl_chart
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl
+CMAKE_BINARY_DIR = E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main.dir/depend.make
@@ -73,48 +73,48 @@ CMakeFiles/main.dir/codegen:
 
 CMakeFiles/main.dir/main.c.obj: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.c.obj: CMakeFiles/main.dir/includes_C.rsp
-CMakeFiles/main.dir/main.c.obj: F:/code/arduino-xiaozhi-course/L51_lvgl_chart/main.c
+CMakeFiles/main.dir/main.c.obj: E:/arduino-xiaozhi-course/L51_lvgl_chart/main.c
 CMakeFiles/main.dir/main.c.obj: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/main.dir/main.c.obj"
-	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main.dir/main.c.obj -MF CMakeFiles\main.dir\main.c.obj.d -o CMakeFiles\main.dir\main.c.obj -c F:\code\arduino-xiaozhi-course\L51_lvgl_chart\main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/main.dir/main.c.obj"
+	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main.dir/main.c.obj -MF CMakeFiles\main.dir\main.c.obj.d -o CMakeFiles\main.dir\main.c.obj -c E:\arduino-xiaozhi-course\L51_lvgl_chart\main.c
 
 CMakeFiles/main.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main.dir/main.c.i"
-	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E F:\code\arduino-xiaozhi-course\L51_lvgl_chart\main.c > CMakeFiles\main.dir\main.c.i
+	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E E:\arduino-xiaozhi-course\L51_lvgl_chart\main.c > CMakeFiles\main.dir\main.c.i
 
 CMakeFiles/main.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main.dir/main.c.s"
-	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S F:\code\arduino-xiaozhi-course\L51_lvgl_chart\main.c -o CMakeFiles\main.dir\main.c.s
+	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S E:\arduino-xiaozhi-course\L51_lvgl_chart\main.c -o CMakeFiles\main.dir\main.c.s
 
 CMakeFiles/main.dir/mouse_cursor_icon.c.obj: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/mouse_cursor_icon.c.obj: CMakeFiles/main.dir/includes_C.rsp
-CMakeFiles/main.dir/mouse_cursor_icon.c.obj: F:/code/arduino-xiaozhi-course/L51_lvgl_chart/mouse_cursor_icon.c
+CMakeFiles/main.dir/mouse_cursor_icon.c.obj: E:/arduino-xiaozhi-course/L51_lvgl_chart/mouse_cursor_icon.c
 CMakeFiles/main.dir/mouse_cursor_icon.c.obj: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/main.dir/mouse_cursor_icon.c.obj"
-	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main.dir/mouse_cursor_icon.c.obj -MF CMakeFiles\main.dir\mouse_cursor_icon.c.obj.d -o CMakeFiles\main.dir\mouse_cursor_icon.c.obj -c F:\code\arduino-xiaozhi-course\L51_lvgl_chart\mouse_cursor_icon.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/main.dir/mouse_cursor_icon.c.obj"
+	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main.dir/mouse_cursor_icon.c.obj -MF CMakeFiles\main.dir\mouse_cursor_icon.c.obj.d -o CMakeFiles\main.dir\mouse_cursor_icon.c.obj -c E:\arduino-xiaozhi-course\L51_lvgl_chart\mouse_cursor_icon.c
 
 CMakeFiles/main.dir/mouse_cursor_icon.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main.dir/mouse_cursor_icon.c.i"
-	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E F:\code\arduino-xiaozhi-course\L51_lvgl_chart\mouse_cursor_icon.c > CMakeFiles\main.dir\mouse_cursor_icon.c.i
+	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E E:\arduino-xiaozhi-course\L51_lvgl_chart\mouse_cursor_icon.c > CMakeFiles\main.dir\mouse_cursor_icon.c.i
 
 CMakeFiles/main.dir/mouse_cursor_icon.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main.dir/mouse_cursor_icon.c.s"
-	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S F:\code\arduino-xiaozhi-course\L51_lvgl_chart\mouse_cursor_icon.c -o CMakeFiles\main.dir\mouse_cursor_icon.c.s
+	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S E:\arduino-xiaozhi-course\L51_lvgl_chart\mouse_cursor_icon.c -o CMakeFiles\main.dir\mouse_cursor_icon.c.s
 
 CMakeFiles/main.dir/my_ui.c.obj: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/my_ui.c.obj: CMakeFiles/main.dir/includes_C.rsp
-CMakeFiles/main.dir/my_ui.c.obj: F:/code/arduino-xiaozhi-course/L51_lvgl_chart/my_ui.c
+CMakeFiles/main.dir/my_ui.c.obj: E:/arduino-xiaozhi-course/L51_lvgl_chart/my_ui.c
 CMakeFiles/main.dir/my_ui.c.obj: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/main.dir/my_ui.c.obj"
-	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main.dir/my_ui.c.obj -MF CMakeFiles\main.dir\my_ui.c.obj.d -o CMakeFiles\main.dir\my_ui.c.obj -c F:\code\arduino-xiaozhi-course\L51_lvgl_chart\my_ui.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/main.dir/my_ui.c.obj"
+	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main.dir/my_ui.c.obj -MF CMakeFiles\main.dir\my_ui.c.obj.d -o CMakeFiles\main.dir\my_ui.c.obj -c E:\arduino-xiaozhi-course\L51_lvgl_chart\my_ui.c
 
 CMakeFiles/main.dir/my_ui.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main.dir/my_ui.c.i"
-	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E F:\code\arduino-xiaozhi-course\L51_lvgl_chart\my_ui.c > CMakeFiles\main.dir\my_ui.c.i
+	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E E:\arduino-xiaozhi-course\L51_lvgl_chart\my_ui.c > CMakeFiles\main.dir\my_ui.c.i
 
 CMakeFiles/main.dir/my_ui.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main.dir/my_ui.c.s"
-	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S F:\code\arduino-xiaozhi-course\L51_lvgl_chart\my_ui.c -o CMakeFiles\main.dir\my_ui.c.s
+	D:\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S E:\arduino-xiaozhi-course\L51_lvgl_chart\my_ui.c -o CMakeFiles\main.dir\my_ui.c.s
 
 # Object files for target main
 main_OBJECTS = \
@@ -125,28 +125,28 @@ main_OBJECTS = \
 # External object files for target main
 main_EXTERNAL_OBJECTS =
 
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/main.c.obj
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/mouse_cursor_icon.c.obj
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/my_ui.c.obj
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/build.make
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_examples.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_demos.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_thorvg.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: D:/mingw64/x86_64-w64-mingw32/lib/libSDL2main.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: D:/mingw64/x86_64-w64-mingw32/lib/libSDL2.dll.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_examples.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_demos.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_thorvg.a
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/linkLibs.rsp
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/objects1.rsp
-F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable F:\code\arduino-xiaozhi-course\L51_lvgl_chart\bin\main.exe"
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/main.c.obj
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/mouse_cursor_icon.c.obj
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/my_ui.c.obj
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/build.make
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_examples.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_demos.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_thorvg.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: D:/mingw64/x86_64-w64-mingw32/lib/libSDL2main.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: D:/mingw64/x86_64-w64-mingw32/lib/libSDL2.dll.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_examples.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_demos.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: lvgl/lib/liblvgl_thorvg.a
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/linkLibs.rsp
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/objects1.rsp
+E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe: CMakeFiles/main.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable E:\arduino-xiaozhi-course\L51_lvgl_chart\bin\main.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\main.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/main.dir/build: F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe
+CMakeFiles/main.dir/build: E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe
 .PHONY : CMakeFiles/main.dir/build
 
 CMakeFiles/main.dir/clean:
@@ -154,6 +154,6 @@ CMakeFiles/main.dir/clean:
 .PHONY : CMakeFiles/main.dir/clean
 
 CMakeFiles/main.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" F:\code\arduino-xiaozhi-course\L51_lvgl_chart F:\code\arduino-xiaozhi-course\L51_lvgl_chart F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles\main.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" E:\arduino-xiaozhi-course\L51_lvgl_chart E:\arduino-xiaozhi-course\L51_lvgl_chart E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles\main.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/main.dir/depend
 

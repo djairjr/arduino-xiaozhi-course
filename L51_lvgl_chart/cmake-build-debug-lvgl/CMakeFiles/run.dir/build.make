@@ -43,19 +43,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2025.1\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2025.1.1\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2025.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2025.1.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = F:\code\arduino-xiaozhi-course\L51_lvgl_chart
+CMAKE_SOURCE_DIR = E:\arduino-xiaozhi-course\L51_lvgl_chart
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl
+CMAKE_BINARY_DIR = E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl
 
 # Utility rule file for run.
 
@@ -65,8 +65,8 @@ include CMakeFiles/run.dir/compiler_depend.make
 # Include the progress variables for this target.
 include CMakeFiles/run.dir/progress.make
 
-CMakeFiles/run: F:/code/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe
-	F:\code\arduino-xiaozhi-course\L51_lvgl_chart\bin\main
+CMakeFiles/run: E:/arduino-xiaozhi-course/L51_lvgl_chart/bin/main.exe
+	E:\arduino-xiaozhi-course\L51_lvgl_chart\bin\main
 
 CMakeFiles/run.dir/codegen:
 .PHONY : CMakeFiles/run.dir/codegen
@@ -84,6 +84,6 @@ CMakeFiles/run.dir/clean:
 .PHONY : CMakeFiles/run.dir/clean
 
 CMakeFiles/run.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" F:\code\arduino-xiaozhi-course\L51_lvgl_chart F:\code\arduino-xiaozhi-course\L51_lvgl_chart F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl F:\code\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles\run.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" E:\arduino-xiaozhi-course\L51_lvgl_chart E:\arduino-xiaozhi-course\L51_lvgl_chart E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl E:\arduino-xiaozhi-course\L51_lvgl_chart\cmake-build-debug-lvgl\CMakeFiles\run.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/run.dir/depend
 

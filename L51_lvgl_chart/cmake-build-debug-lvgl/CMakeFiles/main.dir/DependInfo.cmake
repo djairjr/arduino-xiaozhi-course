@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "F:/code/arduino-xiaozhi-course/L51_lvgl_chart/main.c" "CMakeFiles/main.dir/main.c.obj" "gcc" "CMakeFiles/main.dir/main.c.obj.d"
-  "F:/code/arduino-xiaozhi-course/L51_lvgl_chart/mouse_cursor_icon.c" "CMakeFiles/main.dir/mouse_cursor_icon.c.obj" "gcc" "CMakeFiles/main.dir/mouse_cursor_icon.c.obj.d"
-  "F:/code/arduino-xiaozhi-course/L51_lvgl_chart/my_ui.c" "CMakeFiles/main.dir/my_ui.c.obj" "gcc" "CMakeFiles/main.dir/my_ui.c.obj.d"
+  "E:/arduino-xiaozhi-course/L51_lvgl_chart/main.c" "CMakeFiles/main.dir/main.c.obj" "gcc" "CMakeFiles/main.dir/main.c.obj.d"
+  "E:/arduino-xiaozhi-course/L51_lvgl_chart/mouse_cursor_icon.c" "CMakeFiles/main.dir/mouse_cursor_icon.c.obj" "gcc" "CMakeFiles/main.dir/mouse_cursor_icon.c.obj.d"
+  "E:/arduino-xiaozhi-course/L51_lvgl_chart/my_ui.c" "CMakeFiles/main.dir/my_ui.c.obj" "gcc" "CMakeFiles/main.dir/my_ui.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
