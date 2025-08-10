@@ -532,45 +532,6 @@ CMakeFiles/main.dir/my_ui.c.obj
  D:/mingw64/x86_64-w64-mingw32/include/stdint.h
  D:/mingw64/x86_64-w64-mingw32/include/vadefs.h
  E:/arduino-xiaozhi-course/L51_lvgl_chart/lv_conf.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/anim/lv_example_anim.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/event/lv_example_event.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/get_started/lv_example_get_started.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/grad/lv_example_grad.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/layouts/flex/lv_example_flex.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/layouts/grid/lv_example_grid.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/layouts/lv_example_layout.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/barcode/lv_example_barcode.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/bmp/lv_example_bmp.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/ffmpeg/lv_example_ffmpeg.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/freetype/lv_example_freetype.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/gif/lv_example_gif.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/libjpeg_turbo/lv_example_libjpeg_turbo.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/libpng/lv_example_libpng.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/lodepng/lv_example_lodepng.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/lv_example_libs.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/qrcode/lv_example_qrcode.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/rlottie/lv_example_rlottie.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/svg/lv_example_svg.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/tiny_ttf/lv_example_tiny_ttf.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/libs/tjpgd/lv_example_tjpgd.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/lv_examples.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/file_explorer/lv_example_file_explorer.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/font_manager/lv_example_font_manager.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/fragment/lv_example_fragment.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/gestures/lv_example_gestures.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/gridnav/lv_example_gridnav.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/ime/lv_example_ime_pinyin.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/imgfont/lv_example_imgfont.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/lv_example_others.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/monkey/lv_example_monkey.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/observer/lv_example_observer.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/snapshot/lv_example_snapshot.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/translation/lv_example_translation.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/others/xml/lv_example_xml.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/porting/osal/lv_example_osal.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/scroll/lv_example_scroll.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/styles/lv_example_style.h
- E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/examples/widgets/lv_example_widgets.h
  E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/lv_version.h
  E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/lvgl.h
  E:/arduino-xiaozhi-course/L51_lvgl_chart/lvgl/src/core/lv_group.h
