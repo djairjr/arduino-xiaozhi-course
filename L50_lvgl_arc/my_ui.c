@@ -41,7 +41,7 @@ void show_ui()
     lv_obj_set_style_bg_color(arc, lv_color_hex(0xff0000), LV_PART_KNOB);
 
     // 设置取值范围
-    lv_arc_set_range(arc, 0, 100);
+    // lv_arc_set_range(arc, 0, 100);
 
     // 顺时针旋转90°（注意：精度为1，和之前讲解的图片的旋转精度0.1不一样）
     // lv_arc_set_rotation(arc, 90);
