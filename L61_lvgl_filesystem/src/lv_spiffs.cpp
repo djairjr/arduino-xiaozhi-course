@@ -9,7 +9,7 @@ bool lv_init_spiffs()
         LV_LOG_ERROR("lvgl spiffs system init failed");
         return false;
     }
-    lv_fs_drv_t drv;
+    static lv_fs_drv_t drv;
     lv_fs_drv_init(&drv);
     drv.letter = 'S';
     drv.cache_size = 0;
@@ -36,7 +36,6 @@ bool ready_cb(lv_fs_drv_t* drv)
 
 void* open_cb(lv_fs_drv_t* drv, const char* path, lv_fs_mode_t mode)
 {
-    Serial.println(path);
     auto spiffs_mode = FILE_READ;
     if (mode == LV_FS_MODE_WR)
     {
