@@ -10,7 +10,7 @@
 #define TFT_VER_RES   320
 #define TFT_ROTATION  LV_DISPLAY_ROTATION_0
 
-#define DRAW_BUF_SIZE (TFT_HOR_RES * TFT_VER_RES / 10 * (LV_COLOR_DEPTH / 8))
+#define DRAW_BUF_SIZE (TFT_HOR_RES * TFT_VER_RES  * (LV_COLOR_DEPTH / 8))
 uint32_t draw_buf[DRAW_BUF_SIZE / 4];
 
 FT6336 ft(TOUCH_SDA, TOUCH_SCL, TOUCH_INT, TOUCH_RST, TFT_HOR_RES, TFT_VER_RES);
@@ -19,9 +19,12 @@ FT6336 ft(TOUCH_SDA, TOUCH_SCL, TOUCH_INT, TOUCH_RST, TFT_HOR_RES, TFT_VER_RES);
 void my_touchpad_read(lv_indev_t* indev, lv_indev_data_t* data)
 {
     ft.read();
-    if(!ft.isTouched) {
+    if (!ft.isTouched)
+    {
         data->state = LV_INDEV_STATE_RELEASED;
-    } else {
+    }
+    else
+    {
         data->state = LV_INDEV_STATE_PRESSED;
         data->point.x = ft.points[0].x;
         data->point.y = ft.points[0].y;
@@ -50,7 +53,6 @@ void setup()
     lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER); /*Touchpad should have POINTER type*/
     lv_indev_set_read_cb(indev, my_touchpad_read);
 
-    // 创建一个对象
     show_ui();
 }
 

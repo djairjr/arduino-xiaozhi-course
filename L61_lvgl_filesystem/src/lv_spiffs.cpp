@@ -13,6 +13,7 @@ bool lv_init_spiffs()
     lv_fs_drv_init(&drv);
     drv.letter = 'S';
     drv.cache_size = 0;
+
     drv.read_cb = read_cb;
     drv.write_cb = write_cb;
     drv.open_cb = open_cb;
@@ -50,6 +51,7 @@ lv_fs_res_t close_cb(lv_fs_drv_t* drv, void* file_p)
 {
     const auto file = static_cast<File*>(file_p);
     file->close();
+    delete(file);
     return LV_FS_RES_OK;
 }
 
