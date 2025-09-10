@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BackendCodeEditorMiscSettings">
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
+    <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="L50_lvgl_timer" targetName="PlatformIO" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug-ESP-IDF" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="ESP-IDF">
+        <ADDITIONAL_GENERATION_ENVIRONMENT>
+          <envs>
+            <env name="ESPBAUD" value="921600" />
+            <env name="IDF_TARGET" value="esp32s3" />
+          </envs>
+        </ADDITIONAL_GENERATION_ENVIRONMENT>
+      </configuration>
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="729c5dc6-eaf5-4fbe-91aa-acd330a129f5" name="Changes" comment="LVGL触摸驱动集成与性能监控">
+      <change beforePath="$PROJECT_DIR$/../L24_lvgl_run_demos/.pio/build/esp32-s3-devkitc-1/.sconsign311.dblite" beforeDir="false" afterPath="$PROJECT_DIR$/../L24_lvgl_run_demos/.pio/build/esp32-s3-devkitc-1/.sconsign311.dblite" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="esp32-s3-devkitc-1" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-psram.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/demos/lv_demos.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/demos/widgets/lv_demo_widgets.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/examples/arduino/LVGL_Arduino/LVGL_Arduino.ino" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/lv_conf_template.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/src/core/lv_obj.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/src/core/lv_obj.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/src/demos/widgets/lv_demo_widgets.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/src/lv_conf_internal.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/src/lv_init.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.pio/libdeps/esp32-s3-devkitc-1/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/lv_conf.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main.cpp" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="PlatformioLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="L50_lvgl_timer" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="L50_lvgl_timer" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2025" />
+    <option name="minorVersion" value="1.1" />
+    <option name="productBranch" value="Classic" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2yidVifJPe1FqRLGqmaQgruzVfg" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "PlatformIO.PlatformIO.executor": "Run",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "E:/arduino-xiaozhi-course/L50_lvgl_timer",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CPPToolchains",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\arduino-xiaozhi-course\L35_lvgl_button\src" />
+      <recent name="E:\arduino-xiaozhi-course\L25_lvgl_touch_integration\lib" />
+      <recent name="E:\arduino-xiaozhi-course\L24_lvgl_run_demos\.pio\libdeps\esp32-s3-devkitc-1\lvgl\src" />
+      <recent name="E:\arduino-xiaozhi-course\L23_lvgl_driver_screen\.pio\libdeps\esp32-s3-devkitc-1\lvgl\src" />
+      <recent name="E:\arduino-xiaozhi-course\L23_lvgl_driver_screen\.pio\libdeps\esp32-s3-devkitc-1\lvgl" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\arduino-xiaozhi-course\L35_lvgl_button" />
+      <recent name="E:\arduino-xiaozhi-course\L23_lvgl_driver_screen\.pio\libdeps\esp32-s3-devkitc-1\lvgl\examples" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlatformIO" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="L50_lvgl_timer" TARGET_NAME="PlatformIO" CONFIG_NAME="PlatformIO">
+      <method v="2" />
+    </configuration>
+    <configuration name="PlatformIO" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="L25_lvgl_touch_integration" TARGET_NAME="PlatformIO" CONFIG_NAME="PlatformIO">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="729c5dc6-eaf5-4fbe-91aa-acd330a129f5" name="Changes" comment="" />
+      <created>1750321352852</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750321352852</updated>
+      <workItem from="1750321353905" duration="3978000" />
+      <workItem from="1750388147202" duration="700000" />
+      <workItem from="1750388974240" duration="1293000" />
+      <workItem from="1750556258001" duration="7000" />
+      <workItem from="1750812743430" duration="44000" />
+      <workItem from="1751875317100" duration="705000" />
+      <workItem from="1751958134777" duration="154000" />
+      <workItem from="1752206509828" duration="2013000" />
+      <workItem from="1752208607031" duration="50000" />
+      <workItem from="1752214892486" duration="48000" />
+      <workItem from="1753752116504" duration="9311000" />
+      <workItem from="1755500280317" duration="1817000" />
+      <workItem from="1755503783787" duration="2778000" />
+      <workItem from="1755939937711" duration="1298000" />
+    </task>
+    <task id="LOCAL-00001" summary="LVGL点亮屏幕">
+      <option name="closed" value="true" />
+      <created>1750325358323</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750325358323</updated>
+    </task>
+    <task id="LOCAL-00002" summary="LVGL运行示例代码">
+      <option name="closed" value="true" />
+      <created>1750388845040</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750388845040</updated>
+    </task>
+    <task id="LOCAL-00003" summary="LVGL触摸驱动集成与性能监控">
+      <option name="closed" value="true" />
+      <created>1750390250840</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1750390250840</updated>
+    </task>
+    <task id="LOCAL-00004" summary="LVGL触摸驱动集成与性能监控">
+      <option name="closed" value="true" />
+      <created>1750390259517</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1750390259517</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="LVGL点亮屏幕" />
+    <MESSAGE value="LVGL运行示例代码" />
+    <MESSAGE value="LVGL触摸驱动集成与性能监控" />
+    <option name="LAST_COMMIT_MESSAGE" value="LVGL触摸驱动集成与性能监控" />
+  </component>
+</project>
