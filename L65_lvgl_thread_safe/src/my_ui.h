@@ -1,6 +1,0 @@
-#ifndef L65_LVGL_THREAD_SAFE_MY_UI_H
-#define L65_LVGL_THREAD_SAFE_MY_UI_H
-
-#include "lvgl.h"
-
-#endif //L65_LVGL_THREAD_SAFE_MY_UI_H
