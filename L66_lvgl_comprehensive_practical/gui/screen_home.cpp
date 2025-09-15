@@ -1,9 +1,9 @@
 #include "screen_home.h"
 #include "lvgl.h"
 
-struct screen_home_widgets {
+typedef struct {
     lv_obj_t *screen;
-};
+} screen_home_widgets;
 
 screen_home_widgets screen_home;
 

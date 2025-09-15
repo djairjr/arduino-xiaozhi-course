@@ -80,6 +80,7 @@ void show_ui() {
 
     lv_obj_set_flex_grow(label, 2); // label和volume_slider水平排列，label占2/7空间
     lv_obj_set_flex_grow(volume_slider, 5); // volume_slider占5/7空间
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0xffffff), 0);
 
     // 创建音色设置页面
     lv_obj_t *voice_page = lv_menu_page_create(menu, "音色选择");

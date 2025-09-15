@@ -1,5 +1,6 @@
 #ifndef LVGL_GUI_H
 #define LVGL_GUI_H
+
 #include "src/misc/lv_types.h"
 #include "lvgl.h"
 
@@ -38,6 +39,12 @@ typedef struct {
     lv_obj_t *menu_main_page_label_volume;
     lv_obj_t *menu_main_page_label_brightness;
     lv_obj_t *menu_main_page_label_llm;
+
+    lv_obj_t *menu_network_page;
+    lv_obj_t *menu_network_page_cont;
+    lv_obj_t *menu_network_page_tips_label;
+    lv_obj_t *menu_network_page_refresh_image;
+    lv_obj_t *menu_network_page_wifi_list;
 
     lv_obj_t *menu_main_page_seperator2;
     lv_obj_t *menu_main_page_section_about;

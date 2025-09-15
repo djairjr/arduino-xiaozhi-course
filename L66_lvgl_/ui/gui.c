@@ -6,7 +6,8 @@ void setup_ui(lv_screens_info *ui) {
     ui->status_bar = lv_obj_create(lv_layer_top());
     lv_obj_set_size(ui->status_bar, LV_HOR_RES, 30);
     lv_obj_set_scrollbar_mode(ui->status_bar, LV_SCROLLBAR_MODE_OFF);
-    lv_obj_set_style_bg_color(ui->status_bar, lv_color_hex(0x555555), 0);
+    lv_obj_set_style_border_width(ui->status_bar, 0, 0);
+    lv_obj_set_style_bg_color(ui->status_bar, lv_color_hex(0x000000), 0);
     lv_obj_set_style_text_font(ui->status_bar, &AlibabaPuHuiTi_Regular_16, 0);
     lv_obj_set_style_radius(ui->status_bar, 0, 0);
     lv_obj_set_style_text_color(ui->status_bar, lv_color_hex(0xFFFFFF), 0);

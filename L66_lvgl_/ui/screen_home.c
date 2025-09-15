@@ -18,7 +18,6 @@ void screen_home_event_callback(lv_event_t *event) {
 
 void setup_screen_home(lv_screens_info *ui) {
     ui->screen_home = lv_obj_create(NULL);
-    lv_obj_set_style_pad_all(ui->screen_home, 0, 0);
     lv_obj_set_style_text_font(ui->screen_home, &AlibabaPuHuiTi_Regular_16, 0);
     ui->screen_home_speak_button = lv_button_create(ui->screen_home);
     lv_obj_set_size(ui->screen_home_speak_button, lv_pct(95), 25);
