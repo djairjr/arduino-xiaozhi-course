@@ -49,10 +49,20 @@ typedef struct {
 
     lv_obj_t *menu_network_page_cont2;
     lv_obj_t *menu_network_page_wifi_list;
+    const char *clicked_wifi_name;
     lv_obj_t *menu_network_page_wifi_list_loading_image;
     lv_anim_t menu_network_page_wifi_list_loading_image_anim;
 
+    lv_obj_t *menu_volume_page;
+    lv_obj_t *menu_volume_page_cont;
+    lv_obj_t *menu_volume_page_volume_label;
+    lv_obj_t *menu_volume_page_volume_slider;
+
+    lv_obj_t *menu_brightness_page;
+    lv_obj_t *menu_llm_page;
+
     lv_obj_t *menu_network_page_keyboard_mask; // 键盘遮罩层
+    lv_obj_t *menu_network_page_password_dialog;
     lv_obj_t *menu_network_page_password_tips_label; // WiFi密码输入框
     lv_obj_t *menu_network_page_password_textarea; // WiFi密码输入框
     lv_obj_t *menu_network_page_keyboard; // 键盘遮罩层

@@ -32,6 +32,10 @@ add_executable(main main.c mouse_cursor_icon.c
         ui/screen_settings.c
         ui/screen_settings.h
         ui/AlibabaPuHuiTi_Regular_16.c
+        ui/screen_settings_network.c
+        ui/screen_settings_network.h
+        ui/screen_settings_volume.c
+        ui/screen_settings_volume.h
 )
 
 target_compile_definitions(main PRIVATE LV_CONF_INCLUDE_SIMPLE)
