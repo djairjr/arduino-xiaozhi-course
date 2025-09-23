@@ -10,12 +10,12 @@ DoubaoASR::DoubaoASR(CozeAgent *agent) {
 }
 
 void DoubaoASR::begin() {
-    // 初始化麦克风I2S相关配置
+    // Initialize the microphone I2S related configuration
     constexpr i2s_config_t i2s_config = {
             .mode = static_cast<i2s_mode_t>(I2S_MODE_MASTER | I2S_MODE_RX),
             .sample_rate = AUDIO_SAMPLE_RATE,
             .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,
-            .channel_format = I2S_CHANNEL_FMT_ONLY_LEFT, // 这里的左右声道要和电路保持一致
+            .channel_format = I2S_CHANNEL_FMT_ONLY_LEFT, // The left and right channels here should be consistent with the circuit
             .communication_format = I2S_COMM_FORMAT_STAND_I2S,
             .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1,
             .dma_buf_count = 4,
@@ -33,11 +33,11 @@ void DoubaoASR::begin() {
     i2s_set_pin(MICROPHONE_I2S_NUM, &pin_config);
     i2s_zero_dma_buffer(MICROPHONE_I2S_NUM);
 
-    // TODO: 这里的4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW需要换成你自己的access token
+    // TODO: The 4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW here needs to be replaced with your own access token
     setExtraHeaders("Authorization: Bearer; 4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW");
     beginSSL("openspeech.bytedance.com", 443, "/api/v2/asr");
 
-    // 下面这里用的是C++ lambda表达式
+    // Here is the C++ lambda expression
     onEvent([this](WStype_t type, uint8_t *payload, size_t length) {
         this->eventCallback(type, payload, length);
     });
@@ -56,7 +56,7 @@ void DoubaoASR::parseResponse(const uint8_t *response) {
     const uint8_t *payload = response + 4;
     switch (messageType) {
         case 0b1001: {
-            // 服务端下发包含识别结果的 full server response
+            // The server issues a full server response containing the recognition results
             const uint32_t payloadSize = readInt32(payload);
             payload += 4;
             std::string recognizeResult = readString(payload, payloadSize);
@@ -77,10 +77,10 @@ void DoubaoASR::parseResponse(const uint8_t *response) {
                 for (const auto &item: result) {
                     String text = item["text"];
                     ESP_LOGV(TAG, "text = %s", text.c_str());
-                    // sequence小于0，表示这是最后一个数据包，直接可以打印语音识别全部内容
+                    // The sequence is less than 0, which means that this is the last data packet, and you can directly print all the contents of the voice recognition.
                     if (sequence < 0) {
                         ESP_LOGI(TAG, "speech recognize result: %s", text.c_str());
-                        // 这是服务器返回的最后一个数据包，表示任务结束，往事件组发送事件，通知另一个任务可以结束了
+                        // This is the last data packet returned by the server, indicating that the task is over, sending an event to the event group, notifying another task that can be completed
                         xEventGroupSetBits(_eventGroup, TASK_COMPLETED_EVENT);
                         _cozeAgent->chat(text);
                     }
@@ -89,7 +89,7 @@ void DoubaoASR::parseResponse(const uint8_t *response) {
             break;
         }
         case 0b1111: {
-            // 服务端处理错误时下发的消息类型（如无效的消息格式，不支持的序列化方法等）
+            // The message type sent when the server handles errors (such as invalid message format, unsupported serialization methods, etc.)
             const uint32_t errorCode = readInt32(payload);
             payload += 4;
             const uint32_t messageLength = readInt32(payload);
@@ -131,7 +131,7 @@ void DoubaoASR::buildFullClientRequest() {
     JsonDocument doc;
     doc.clear();
     const JsonObject app = doc["app"].to<JsonObject>();
-    // TODO: 以下三个参数，修改成自己的
+    // TODO: Change the following three parameters to your own
     app["appid"] = "xxx";
     app["cluster"] = "volcengine_streaming_common";
     app["token"] = "xxxxx";
@@ -161,12 +161,12 @@ void DoubaoASR::buildFullClientRequest() {
     payload[payloadStr.length()] = '\0';
     std::vector<uint8_t> payloadSize = uint32ToUint8Array(payloadStr.length());
     _requestBuilder.clear();
-    // 先写入报头（四字节）
+    // Write to the header (four bytes)
     _requestBuilder.insert(_requestBuilder.end(), DoubaoASRDefaultFullClientWsHeader,
                            DoubaoASRDefaultFullClientWsHeader + sizeof(DoubaoASRDefaultFullClientWsHeader));
-    // 写入payload长度（四字节）
+    // Write payload length (four bytes)
     _requestBuilder.insert(_requestBuilder.end(), payloadSize.begin(), payloadSize.end());
-    // 写入payload内容
+    // Write payload content
     _requestBuilder.insert(_requestBuilder.end(), payload, payload + payloadStr.length());
 }
 
@@ -175,18 +175,18 @@ void DoubaoASR::buildAudioOnlyRequest(uint8_t *audio, const size_t size, const b
     std::vector<uint8_t> payloadLength = uint32ToUint8Array(size);
 
     if (lastPacket) {
-        // 先写入报头（四字节）
+        // Write to the header (four bytes)
         _requestBuilder.insert(_requestBuilder.end(), DoubaoASRDefaultLastAudioWsHeader,
                                DoubaoASRDefaultLastAudioWsHeader + sizeof(DoubaoASRDefaultLastAudioWsHeader));
     } else {
-        // 先写入报头（四字节）
+        // Write to the header (four bytes)
         _requestBuilder.insert(_requestBuilder.end(), DoubaoASRDefaultAudioOnlyWsHeader,
                                DoubaoASRDefaultAudioOnlyWsHeader + sizeof(DoubaoASRDefaultAudioOnlyWsHeader));
     }
 
-    // 写入payload长度（四字节）
+    // Write payload length (four bytes)
     _requestBuilder.insert(_requestBuilder.end(), payloadLength.begin(), payloadLength.end());
-    // 写入payload内容
+    // Write payload content
     _requestBuilder.insert(_requestBuilder.end(), audio, audio + size);
 }
 
@@ -199,38 +199,38 @@ void DoubaoASR::asr(uint8_t *buffer, const size_t size, const bool firstPacket, 
             connect();
             vTaskDelay(1);
         }
-        // 构建第一个语音识别请求的相关报文头，可以参考官方文档：https://www.volcengine.com/docs/6561/80818
+        // To build the relevant message header for the first voice recognition request, you can refer to the official document: https://www.volcengine.com/docs/6561/80818
         buildFullClientRequest();
-        // 第一个数据包发往服务器，开启识别任务
+        // The first packet is sent to the server and the identification task is started
         if (!sendBIN(_requestBuilder.data(), _requestBuilder.size())) {
             ESP_LOGD(TAG, "发送语音识别请求第一个数据包失败");
         }
-        // 给loop一个执行的机会，接收可能的服务器端下发的数据
+        // Give loop an opportunity to execute and receive possible server-side data
         loop();
     }
-    // 构建语音数据包
+    // Build voice packets
     buildAudioOnlyRequest(buffer, size, lastPacket);
     if (!sendBIN(_requestBuilder.data(), _requestBuilder.size())) {
         ESP_LOGE(TAG, "发送语音识别音频数据包失败...");
     }
-    // 继续给loop函数执行的机会
+    // Continue to give loop function a chance to execute
     loop();
     if (lastPacket) {
-        // 如果已经往服务器发送了最后一个语音识别数据包，则等待任务结束
+        // If the last voice recognition packet has been sent to the server, wait for the task to end
         while ((xEventGroupWaitBits(_eventGroup, TASK_COMPLETED_EVENT,
                                     false, true, pdMS_TO_TICKS(1)) & TASK_COMPLETED_EVENT) == 0) {
-            // 持续调用loop，接收服务器下发的数据
+            // Continuously call loop to receive data sent by the server
             loop();
             vTaskDelay(1);
         }
-        // 任务完成，关闭websocket连接
+        // The task is completed, close the websocket connection
         disconnect();
     }
 }
 
 void DoubaoASR::consumeRingBuffer(void *ptr) {
     size_t bytesRead;
-    bool firstPacket = true; // 流式语音识别，用这个表示这是识别的第一个语音包
+    bool firstPacket = true; // Streaming voice recognition, using this means that this is the first voice packet recognized
     while (true) {
         void *buffer = xRingbufferReceive(_ringBuffer, &bytesRead, pdMS_TO_TICKS(100));
         if (buffer != nullptr) {
@@ -242,7 +242,7 @@ void DoubaoASR::consumeRingBuffer(void *ptr) {
             }
             vRingbufferReturnItem(_ringBuffer, buffer);
         } else if (!firstPacket) {
-            // 模拟最后一个空报文，没有任何音频数据，主要作用是让服务端结束一轮识别任务，返回最终的识别内容
+            // Simulate the last empty message without any audio data. The main function is to let the server end a round of recognition tasks and return the final recognition content.
             uint8_t fakeAudio[1] = {0};
             asr(fakeAudio, 1, firstPacket, true);
             firstPacket = true;

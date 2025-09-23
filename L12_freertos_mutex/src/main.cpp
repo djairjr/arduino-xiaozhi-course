@@ -47,15 +47,15 @@ void setup()
     semaphore2 = xSemaphoreCreateBinary();
     mutex = xSemaphoreCreateMutex();
 
-    // 创建两个计数任务，每个任务分别往totalCount上累加10000
+    // Create two counting tasks, each task accumulates 10,000 on totalCount respectively
     xTaskCreatePinnedToCore(count1, "count-task1", 1024, nullptr, 1, nullptr, 0);
     xTaskCreatePinnedToCore(count2, "count-task2", 1024, nullptr, 1, nullptr, 1);
 
-    // 等待两个任务都全部结束
+    // Wait for both tasks to end
     xSemaphoreTake(semaphore1, portMAX_DELAY);
     xSemaphoreTake(semaphore2, portMAX_DELAY);
 
-    // 打印最终计数值（期望是20000）
+    // Print the final count value (expectedly 20000)
     Serial.printf("total count = %d\n", totalCount);
 }
 

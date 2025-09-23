@@ -1,31 +1,31 @@
 #include <Arduino.h>
 #include <event_groups.h>
 
-// 定义洗衣机洗涤过程中的一些事件位
-#define DOOR_CLOSED   (1 << 0)  // 表示洗衣机舱门关闭
-#define WATER_READY   (1 << 1)  // 表示水位是否满足条件
-#define POWER_ON      (1 << 2)  // 表示电源已接通
+// Define some event bits during washing machine washing
+#define DOOR_CLOSED   (1 << 0)  // Indicates that the washing machine door is closed
+#define WATER_READY   (1 << 1)  // Indicates whether the water level meets the conditions
+#define POWER_ON      (1 << 2)  // Indicates that the power supply is turned on
 
-// 创建事件组句柄
+// Create event group handle
 EventGroupHandle_t xWashingEventGroup;
 
-// 检测舱门是否关闭的传感器任务
+// Sensor task to detect whether the hatch door is closed
 void vDoorSensorTask(void *pvParameters);
-// 检测水位是否到达预定位置的传感器任务
+// Sensor task to detect whether the water level reaches a predetermined position
 void vWaterSensorTask(void *pvParameters);
-// 检测电源是否已接通的任务
+// Task to detect whether the power supply is turned on
 void vPowerMonitorTask(void *pvParameters);
-// 正式开始洗衣的任务
+// The laundry task officially begins
 void vWashingMachineTask(void *pvParameters);
 
 void setup() {
   Serial.begin(9600);
   vTaskDelay(pdMS_TO_TICKS(3000));
 
-  // 创建事件组
+  // Create event group
   xWashingEventGroup = xEventGroupCreate();
 
-  // 创建各个子任务
+  // Create individual subtasks
   xTaskCreate(vDoorSensorTask, "Door", 1024, nullptr, 1, nullptr);
   xTaskCreate(vWaterSensorTask, "Water", 1024, nullptr, 1, nullptr);
   xTaskCreate(vPowerMonitorTask, "Power", 1024, nullptr, 1, nullptr);
@@ -37,13 +37,13 @@ void setup() {
 void loop() {
 }
 
-// 模拟舱门传感器检测任务
+// Simulated door sensor detection task
 void vDoorSensorTask(void *pvParameters) {
   while (true) {
-    // 模拟门状态变化
+    // Simulation gate state changes
     vTaskDelay(pdMS_TO_TICKS(3000));
 
-    // 随机模拟门是否关闭
+    // Whether the random simulation door is closed
     if (random(0, 2) == 1) {
       Serial.println("洗衣机门已关闭");
       xEventGroupSetBits(xWashingEventGroup, DOOR_CLOSED);
@@ -54,13 +54,13 @@ void vDoorSensorTask(void *pvParameters) {
   }
 }
 
-// 水位传感器任务
+// Water level sensor task
 void vWaterSensorTask(void *pvParameters) {
   while (true) {
-    // 模拟水位状态变化
+    // Simulate water level changes
     vTaskDelay(pdMS_TO_TICKS(5000));
 
-    // 随机模拟水位是否达到要求
+    // Random simulation of whether the water level meets the requirements
     if (random(0, 2) == 1) {
       Serial.println("水位已达到要求");
       xEventGroupSetBits(xWashingEventGroup, WATER_READY);
@@ -71,13 +71,13 @@ void vWaterSensorTask(void *pvParameters) {
   }
 }
 
-// 电源监控任务
+// Power monitoring tasks
 void vPowerMonitorTask(void *pvParameters) {
   while (true) {
-    // 模拟电源状态变化
+    // Analog power supply state changes
     vTaskDelay(pdMS_TO_TICKS(2000));
 
-    // 随机模拟电源是否接通
+    // Whether the random analog power supply is turned on
     if (random(0, 2) == 1) {
       Serial.println("电源已接通");
       xEventGroupSetBits(xWashingEventGroup, POWER_ON);
@@ -88,21 +88,21 @@ void vPowerMonitorTask(void *pvParameters) {
   }
 }
 
-// 洗衣机任务 - 等待所有条件满足后开始工作
+// Washing Machine Task - Wait until all conditions are met to start work
 void vWashingMachineTask(void *pvParameters) {
   while (true) {
-    // 等待所有条件满足（门关闭、水位达标、电源接通）
+    // Wait for all conditions to be met (door close, water level meets standards, power supply is turned on)
     constexpr EventBits_t waitBits = (DOOR_CLOSED | WATER_READY | POWER_ON);
 
     const EventBits_t uxBits = xEventGroupWaitBits(
-      xWashingEventGroup, // 需要监听的事件组
-      waitBits, // 需要监听哪些事件，多个事件使用按位或运算组合
-      pdFALSE, // 满足条件后，不清除等待的事件位
-      pdTRUE, // 需要等待满足所有条件才行，为false则表示任意条件达标即可
-      portMAX_DELAY // 无限等待
+      xWashingEventGroup, // Event group that needs to be listened to
+      waitBits, // Which events need to be listened to, multiple events use bitwise or operation combinations
+      pdFALSE, // After the condition is met, the waiting event bit is not cleared
+      pdTRUE, // You need to wait until all conditions are met. If false, it means that any conditions are met.
+      portMAX_DELAY // Unlimited waiting
     );
 
-    // 检查是否所有条件都满足
+    // Check if all conditions are met
     if ((uxBits & waitBits) == waitBits) {
       Serial.println("=== 开始洗衣程序 ===");
       Serial.println("洗衣模式：标准");

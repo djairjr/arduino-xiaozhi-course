@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 import os
 
-"""
+# """
 Please add the translation language you want to add here, while also modifying the variable URL_BASE in _ext/link_roles.py
 For example:
 
-LANGUAGE =  ':link_to_translation:`zh_CN:[中文]`\t'  + \
+LANGUAGE = ':link_to_translation:`zh_CN:[Chinese]`\t' + \
             ':link_to_translation:`en:[English]`\t' + \
             '\n\n'
 

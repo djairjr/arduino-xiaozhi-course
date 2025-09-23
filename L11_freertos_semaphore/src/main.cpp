@@ -13,7 +13,7 @@ void count(void* pvParameters)
         Serial.printf("当前报数：%d\n", i);
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
-    xSemaphoreGive(semaphore);  // 报数结束释放信号量，这里释放时候，setup函数中才能Take成功
+    xSemaphoreGive(semaphore);  // The semaphore is released after the report. Only when the number is released here can the setup function take successfully.
     vTaskDelete(nullptr);
 }
 
@@ -22,7 +22,7 @@ void setup()
     Serial.begin(9600);
     semaphore = xSemaphoreCreateBinary();
 
-    // 创建一个报数任务，从1一直数到10报数完成
+    // Create a counting task, counting from 1 to 10 counting
     xTaskCreate(count,
         "count",
         2048,
@@ -30,7 +30,7 @@ void setup()
         1,
         nullptr);
 
-    // 等待获取信号量（上一个任务报数完成才会释放信号量），获取不到就一直等着
+    // Wait for the semaphore to be obtained (the semaphore will be released only if the previous task count is completed), if it cannot be obtained, it will be waiting.
     xSemaphoreTake(semaphore, portMAX_DELAY);
     Serial.println("成功获取信号量");
 }

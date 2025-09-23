@@ -23,11 +23,11 @@ void sw_event_callback(lv_event_t* e)
             }
             if (isOpened)
             {
-                // 显示按钮
+                // Show button
                 lv_obj_remove_flag(button, LV_OBJ_FLAG_HIDDEN);
             } else
             {
-                // 隐藏按钮
+                // Hide button
                 lv_obj_add_flag(button, LV_OBJ_FLAG_HIDDEN);
             }
             break;
