@@ -1,10 +1,10 @@
 # arduino-xiaozhi-course
 
-#### 介绍
+#### Description
 
-Arduino 版本小智聊天机器人视频课程章节源码
+Source code for the chapters of the Arduino version XiaoZhi chatbot video course.
 
-#### 使用说明
+#### Instructions for Use
 
-1、下载本仓库  
-2、购买配套硬件套装和视频课程学习，配套视频教程在这里：https://code.welinklab.com/#/details?id=22
+1.  Download this repository.
+2.  Purchase the matching hardware kit and video course for learning. The accompanying video tutorials are available here: https://code.welinklab.com/#/details?id=22
