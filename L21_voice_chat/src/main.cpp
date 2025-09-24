@@ -20,7 +20,7 @@ void setup() {
     WiFiClass::mode(WIFI_MODE_STA);
     // TODO: Change the WiFi name and password here to your own
     WiFi.begin("ChinaNet-GdPt", "19910226");
-    ESP_LOGI(TAG, "Connecting to the Internet")ting to the Internet");
+    ESP_LOGI(TAG, "Connecting to the Internet");
     while (WiFiClass::status() != WL_CONNECTED) {
         ESP_LOGI(TAG, ".");
         vTaskDelay(1000);
