@@ -11,10 +11,10 @@ void dropdown_event_callback(lv_event_t* e)
     {
     case LV_EVENT_VALUE_CHANGED:
         {
-            // 获取当前选中的选项的索引（从0开始）
+            // Get the index of the currently selected option (starting from 0)
             const uint32_t index = lv_dropdown_get_selected(dropdown);
             char option[128];
-            // 获取当前选中的选项的文字内容
+            // Get the text content of the currently selected option
             lv_dropdown_get_selected_str(dropdown, option, 128);
             if (selected_music_label == NULL)
             {
@@ -31,36 +31,36 @@ void dropdown_event_callback(lv_event_t* e)
 
 void show_ui()
 {
-    // 创建一个下拉选项
+    // Create a drop-down option
     lv_obj_t* dropdown = lv_dropdown_create(lv_scr_act());
-    // 设置下拉选项尺寸
+    // Set drop-down option size
     lv_obj_set_size(dropdown, 200, 25);
-    // 设置下拉选项位置居中然后上移50像素
+    // Set the drop-down option position centered and then move up 50 pixels
     lv_obj_align(dropdown, LV_ALIGN_CENTER, -120, -50);
-    // 设置下拉选项显示的默认文字内容
+    // Set the default text content displayed by the drop-down option
     lv_dropdown_set_text(dropdown, "Please select music");
-    // 设置下拉选项右边的符号
+    // Set the symbol to the right of the drop-down option
     lv_dropdown_set_symbol(dropdown, LV_SYMBOL_AUDIO);
-    // 设置下拉选项得到条目
+    // Set the drop-down option to get the entry
     lv_dropdown_set_options(dropdown, "Hey Jude\nYesterday\nShape of You\nSmells Like Teen Spirit");
-    // 在现有条目中新增条目，注意：第二个参数不要添加换行符
+    // Add new entries to existing entries, note: Do not add newlines for the second parameter
     lv_dropdown_add_option(dropdown, "Sweet Child O' Mine", 0);
-    // 设置列表展开方向
+    // Set the list expansion direction
     lv_dropdown_set_dir(dropdown, LV_DIR_RIGHT);
 
-    // 设置下拉框按钮上的文字颜色为红色（这里会同时设置符号为红色，下面的函数可以单独这是符号颜色）
+    // Set the text color on the drop-down box button to red (the symbol will be set to red at the same time, and the following functions can be individually the symbol color)
     lv_obj_set_style_text_color(dropdown, lv_color_hex(0xFF0000), LV_PART_MAIN);
-    // 设置下拉框符号颜色为黑色
+    // Set the drop-down box symbol color to black
     lv_obj_set_style_text_color(dropdown, lv_color_hex(0x000000), LV_PART_INDICATOR);
-    // 设置下拉框方形圆角为0（去除圆角）
+    // Set the square rounded corner of the drop-down box to 0 (remove the rounded corners)
     lv_obj_set_style_radius(dropdown, 0, LV_PART_MAIN);
-    // 获取下拉框列表
+    // Get the drop-down box list
     lv_obj_t* dropdown_list = lv_dropdown_get_list(dropdown);
-    // 设置下拉框列表的字体颜色为绿色
+    // Set the font color of the drop-down box list to green
     lv_obj_set_style_text_color(dropdown_list, lv_color_hex(0x00FF00), LV_PART_MAIN);
-    // 设置下拉框列表中文字对齐方式为居中对齐
+    // Set the text alignment method in the drop-down box list to center alignment
     lv_obj_set_style_text_align(dropdown_list, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
 
-    // 为下拉框添加事件回调函数
+    // Add event callback function to the drop-down box
     lv_obj_add_event_cb(dropdown, dropdown_event_callback, LV_EVENT_VALUE_CHANGED, 0);
 }

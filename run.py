@@ -2,7 +2,7 @@ import os
 import argparse
 
 def process_gitignore(file_path):
-    # """ Process a single .gitignore file, deleting lines containing 'cmake' or 'config.h'""
+    # # """ Process a single .gitignore file, deleting lines containing 'cmake' or 'config.h'""
     try:
         # Read file content
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -10,8 +10,8 @@ def process_gitignore(file_path):
         
         # Filter out lines containing 'cmake/' or 'config.h' (case insensitive)
         new_lines = [
-            line for line in lines 
-            if 'cmake/' not in line.lower() 
+            line for line in lines
+            if 'cmake/' not in line.lower()
             and 'config.h' not in line.lower()
         ]
         
@@ -19,12 +19,12 @@ def process_gitignore(file_path):
         if len(new_lines) != len(lines):
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.writelines(new_lines)
-            print(f"已处理: {file_path}")
+            print(f"processed: {file_path}")
             return True
         return False
         
     except Exception as e:
-        print(f"处理文件 {file_path} 时出错: {str(e)}")
+        print(f"Error processing file {file_path}: {str(e)}")
         return False
 
 def find_and_process_gitignores(root_dir):
