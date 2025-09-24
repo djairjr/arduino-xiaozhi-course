@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <event_groups.h>
 
-// Define some event bits during washing machine washing
+// Define some event bits during washing machine
 #define DOOR_CLOSED   (1 << 0)  // Indicates that the washing machine door is closed
 #define WATER_READY   (1 << 1)  // Indicates whether the water level meets the conditions
 #define POWER_ON      (1 << 2)  // Indicates that the power supply is turned on

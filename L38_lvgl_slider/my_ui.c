@@ -4,7 +4,7 @@
 #include "my_ui.h"
 #include "lvgl.h"
 
-// Define two global labels to display the left and right values ​​of the current slider
+// 定义两个全局标签，用于显示当前滑块的左右值
 static lv_obj_t* left_label;
 static lv_obj_t* right_label;
 
@@ -16,17 +16,17 @@ void slider_event_callback(lv_event_t* e)
     {
     case LV_EVENT_VALUE_CHANGED:
         {
-            // Get the slider lvalue
+            // 获取滑块左值
             const int32_t left_value = lv_slider_get_left_value(slider);
-            // Get the slider right value
+            // 获取滑块右值
             const int32_t right_value = lv_slider_get_value(slider);
-            // Create lvalue display labels on the first time
+            // 第一次时创建左值显示标签
             if (left_label == NULL)
             {
                 left_label = lv_label_create(lv_scr_act());
                 lv_obj_align_to(left_label, slider, LV_ALIGN_OUT_TOP_MID, -50, -20);
             }
-            // Create an rvalue display label on the first time
+            // 第一次时创建右值显示标签
             if (right_label == NULL)
             {
                 right_label = lv_label_create(lv_scr_act());
@@ -41,45 +41,45 @@ void slider_event_callback(lv_event_t* e)
     }
 }
 
-#define MIN_VALUE (-100)   // The minimum value of the slider. If the slider mode is symmetrical, the maximum value and minimum value are generally opposite.
-#define MAX_VALUE 100      // The maximum value of the slider. If the slider mode is symmetrical, the maximum value and minimum value are generally opposite.
+#define MIN_VALUE (-100)   // 滑块最小值，如果滑块模式是对称模式，一般最大值和最小值为相反数
+#define MAX_VALUE 100      // 滑块最大值，如果滑块模式是对称模式，一般最大值和最小值为相反数
 
 void show_ui()
 {
-    // Create slider
+    // 创建滑块
     lv_obj_t* slider = lv_slider_create(lv_scr_act());
-    // Set the slider size
+    // 设置滑块尺寸
     lv_obj_set_size(slider, 200, 10);
-    // Let the slider center
+    // 让滑块居中
     lv_obj_center(slider);
-    // Set the maximum and minimum values ​​of the slider (if the slider mode is symmetrical, the maximum and minimum values ​​are generally opposite)
+    // 设置滑块的最大值和最小值（如果滑块模式是对称模式，则最大值和最小值一般为相反数）
     lv_slider_set_range(slider, MIN_VALUE, MAX_VALUE);
 
-    // // Set the initial value of the slider
-    lv_slider_set_value(slider, 20, LV_ANIM_ON);  // Rvalue
+    // // 设置滑块初始值
+    lv_slider_set_value(slider, 20, LV_ANIM_ON);  // 右值
 
-    // Create two labels to identify range values
+    // 创建两个标签，用于标识范围值
     lv_obj_t* left_label = lv_label_create(lv_scr_act());
     lv_obj_t* right_label = lv_label_create(lv_scr_act());
     lv_label_set_text_fmt(left_label, "%d", MIN_VALUE);
     lv_label_set_text_fmt(right_label, "%d", MAX_VALUE);
-    // The label is vertically centered relative to the slider, one is on the left and one is on the right.
+    // 标签相对于滑块垂直居中对齐，一个位于左边，一个位于右边
     lv_obj_align_to(left_label, slider, LV_ALIGN_OUT_LEFT_MID, -15, 0);
     lv_obj_align_to(right_label, slider, LV_ALIGN_OUT_RIGHT_MID, 15, 0);
 
-    // Set the background color of the slider body to blue
+    // 设置滑块主体背景颜色为蓝色
     lv_obj_set_style_bg_color(slider, lv_color_hex(0x0000FF), LV_PART_MAIN);
-    // Set the slider indicator part color to red
+    // 设置滑块指示器部分颜色为红色
     lv_obj_set_style_bg_color(slider, lv_color_hex(0xFF0000), LV_PART_INDICATOR);
-    // Set the slider knob part to green
+    // 设置滑块旋钮部分为绿色
     lv_obj_set_style_bg_color(slider, lv_color_hex(0x00AA00), LV_PART_KNOB);
 
-    // // Set slider mode
-    // lv_slider_set_mode(slider, LV_SLIDER_MODE_NORMAL); // Normal mode, only one slider, adjust an absolute value
-    // lv_slider_set_mode(slider, LV_SLIDER_MODE_SYMMETRICAL); // Symmetric mode, offset relative to center point 0
-    lv_slider_set_mode(slider, LV_SLIDER_MODE_RANGE); // Range mode, two sliders, the left and right values ​​can be adjusted separately
-    lv_slider_set_left_value(slider, -20, LV_ANIM_ON);  // Set the initial lvalue (set to range mode before it will take effect)
+    // // 设置滑块模式
+    // lv_slider_set_mode(slider, LV_SLIDER_MODE_NORMAL); // 普通模式，只有一个滑块，调整一个绝对数值
+    // lv_slider_set_mode(slider, LV_SLIDER_MODE_SYMMETRICAL); // 对称模式，相对于中心点0的偏移量
+    lv_slider_set_mode(slider, LV_SLIDER_MODE_RANGE); // 范围模式，两个滑块，可以分别调整左右值
+    lv_slider_set_left_value(slider, -20, LV_ANIM_ON);  // 设置初始左值（先设置为范围模式才会生效）
 
-    // Add event callback function to slider
+    // 为滑块添加事件回调函数
     lv_obj_add_event_cb(slider, slider_event_callback, LV_EVENT_VALUE_CHANGED, 0);
 }

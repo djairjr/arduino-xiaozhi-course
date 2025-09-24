@@ -37,7 +37,7 @@ static uint32_t my_tick(void)
 
 static void event_handler(lv_event_t* e)
 {
-    lv_event_code_t code = lv_event_get_code(e); // Get event type
+    lv_event_code_t code = lv_event_get_code(e); // 获取事件类型
     lv_obj_t* button = static_cast<lv_obj_t*>(lv_event_get_target(e));
     switch (code)
     {
@@ -81,7 +81,7 @@ void setup()
     lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER); /*Touchpad should have POINTER type*/
     lv_indev_set_read_cb(indev, my_touchpad_read);
 
-    // Create an object
+    // 创建一个对象
     lv_obj_t* button = lv_button_create(lv_scr_act());
     lv_obj_set_size(button, 100, 30);
     lv_obj_center(button);

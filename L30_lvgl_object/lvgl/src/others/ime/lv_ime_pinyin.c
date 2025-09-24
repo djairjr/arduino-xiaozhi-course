@@ -183,7 +183,7 @@ static const lv_pinyin_dict_t lv_ime_pinyin_def_dict[] = {
     { "ji", "It is considered that the emergency mechanism is the most urgent and the technology is the collection of the base sacrificial sacrificial system." },
     { "jia", "Home price" },
     { "jian", "Jiejianjian shoulder-viewing and simplicity" },
-    { "jiang", "Reduce the reform of the port" },
+    { "jiang", "Reduce the harbor" },
     { "jiao", "Calling the teaching of the Jiaojiao Vision Learning" },
     { "jie", "Introduction to the relationship between the students and sisters, all the worlds are the interpretation of the relationship." },
     { "jin", "The banned gold is only added today" },

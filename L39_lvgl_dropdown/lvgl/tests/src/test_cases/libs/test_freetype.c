@@ -27,7 +27,7 @@ static const char * UNIVERSAL_DECLARATION_OF_HUMAN_RIGHTS_EN =
 static const char * UNIVERSAL_DECLARATION_OF_HUMAN_RIGHTS_JP =
     "人間の家族のすべての構成員の固有の尊厳と平等で譲渡不能な権利とを承認することは、自由と正義と平和の基礎である...";
 
-// Outline data for unicode 'drunk' (U+9F98)
+// Outline data for unicode '龘' (U+9F98)
 static const lv_freetype_outline_event_param_t outline_data_U9F98[] = {
     {NULL, 1, {5888, 6889}, {0, 0}, {0, 0}, {0, 0}},
     {NULL, 2, {6445, 6889}, {0, 0}, {0, 0}, {0, 0}},

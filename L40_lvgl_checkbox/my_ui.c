@@ -7,7 +7,7 @@ void checkbox_event_callback(lv_event_t* e)
     lv_obj_t* checkbox = (lv_obj_t*)lv_event_get_target(e);
     if (code == LV_EVENT_VALUE_CHANGED)
     {
-        // Determine whether the current check box is selected
+        // 判断当前复选框是否是被选中状态
         if (lv_obj_has_state(checkbox, LV_STATE_CHECKED))
         {
             lv_checkbox_set_text(checkbox, "checked");
@@ -21,30 +21,30 @@ void checkbox_event_callback(lv_event_t* e)
 
 void show_ui()
 {
-    // Create a check box
+    // 创建复选框
     lv_obj_t* checkbox = lv_checkbox_create(lv_scr_act());
 
-    // Note: The check box does not need to set the size, and the size will be automatically adjusted according to the text content.
+    // 注意：复选框不需要设置尺寸，互已根据文字内容自动会调整尺寸大小
     // lv_obj_set_size(checkbox, 200, 20);
 
-    // Set the checkbox text content to Apple
+    // 设置复选框文字内容为Apple
     lv_checkbox_set_text(checkbox, "checked");
 
-    // Center the check box
+    // 复选框居中
     lv_obj_center(checkbox);
 
-    // Set the default state to selected state
+    // 设置默认状态为选中状态
     lv_obj_add_state(checkbox, LV_STATE_CHECKED);
 
-    // Set the text content of the check box to red
+    // 设置复选框文字内容为红色
     lv_obj_set_style_text_color(checkbox, lv_color_hex(0xFF0000), LV_PART_MAIN);
 
-    // Set the transparency of the entire checkbox space to 100 (maximum value of 255)
+    // 设置整个复选框空间的透明度为100（最大值255）
     lv_obj_set_style_opa(checkbox, 100, LV_PART_MAIN);
 
-    // Set the rounded corners of the check box to 20 pixels
+    // 设置复选框方框的圆角为20像素
     lv_obj_set_style_radius(checkbox, 20, LV_PART_INDICATOR);
 
-    // Add an event response callback function
+    // 添加事件响应回调函数
     lv_obj_add_event_cb(checkbox, checkbox_event_callback, LV_EVENT_VALUE_CHANGED, NULL);
 }
