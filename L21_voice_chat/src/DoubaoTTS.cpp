@@ -69,12 +69,12 @@ void DoubaoTTS::parseResponse(const uint8_t *response) const {
                     task.data = static_cast<int16_t *>(ps_malloc(payloadSize));
                     memcpy(task.data, payload, payloadSize);
                     if (xQueueSend(playAudioQueue, &task, portMAX_DELAY) != pdPASS) {
-                        ESP_LOGE(TAG, "发送音频播放任务到队列失败: %d", task.length);
+                        ESP_LOGE(TAG, "Failed to send audio playback task to queue: %d", task.length);
                         free(task.data); // If the send to the queue fails, the producer is responsible for retrieving the memory.
                     }
                 }
                 if (sequenceNumber < 0) {
-                    ESP_LOGV(TAG, "语音合成任务结束");
+                    ESP_LOGV(TAG, "Voice synthesis task ends");
                     xSemaphoreGive(taskFinished);
                 }
             }
@@ -85,7 +85,7 @@ void DoubaoTTS::parseResponse(const uint8_t *response) const {
             const uint8_t errorCode = readInt32(payload);
             const uint8_t messageSize = readInt32(payload + 4);
             const unsigned char *errMessage = payload + 8;
-            ESP_LOGD(TAG, "语音合成失败, code: %d, 原因: %s", errorCode, String(errMessage, messageSize).c_str());
+            ESP_LOGD(TAG, "Speech synthesis failed, code: %d, reason: %s", errorCode, String(errMessage, messageSize).c_str());
             xSemaphoreGive(taskFinished);
             break;
         }
@@ -138,7 +138,7 @@ String DoubaoTTS::buildFullClientRequest(const String &text) {
 }
 
 void DoubaoTTS::tts(const String &text, bool lastPacket) {
-    ESP_LOGD(TAG, "开始语音合成: %s", text.c_str());
+    ESP_LOGD(TAG, "Start speech synthesis: %s", text.c_str());
     // Wait for the websocket to establish a connection
     while (!isConnected()) {
         connect();
@@ -164,7 +164,7 @@ void DoubaoTTS::tts(const String &text, bool lastPacket) {
     clientRequest.insert(clientRequest.end(), payload, payload + sizeof(payload));
 
     if (!sendBIN(clientRequest.data(), clientRequest.size())) {
-        ESP_LOGE(TAG, "发送语音合成请求数据包失败: %s", text.c_str());
+        ESP_LOGE(TAG, "Failed to send voice synthesis request packet: %s", text.c_str());
         xSemaphoreGive(taskFinished);
         return;
     }

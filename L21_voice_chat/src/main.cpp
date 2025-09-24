@@ -20,12 +20,12 @@ void setup() {
     WiFiClass::mode(WIFI_MODE_STA);
     // TODO: Change the WiFi name and password here to your own
     WiFi.begin("ChinaNet-GdPt", "19910226");
-    ESP_LOGI(TAG, "正在联网");
+    ESP_LOGI(TAG, "Connecting to the Internet")ting to the Internet");
     while (WiFiClass::status() != WL_CONNECTED) {
         ESP_LOGI(TAG, ".");
         vTaskDelay(1000);
     }
-    ESP_LOGI(TAG, "联网成功");
+    ESP_LOGI(TAG, "Successful Internet connection")sful Internet connection");
     // Enable tts voice synthesis task
     tts.begin();
     // Start the Asr voice recognition task
@@ -35,7 +35,7 @@ void setup() {
 void loop() {
     if (Serial.available() > 0) {
         Serial.readStringUntil('\n');
-        ESP_LOGI(TAG, "开始录音，请说话，持续时间5s...");
+        ESP_LOGI(TAG, "Start recording, please speak, lasting 5s...")ase speak, lasting 5s...");
         // Record 100 times, each time recording 50ms of audio
         for (int i = 0; i < 100; i++) {
             const esp_err_t err = i2s_read(MICROPHONE_I2S_NUM,
@@ -49,10 +49,10 @@ void loop() {
                 // The recorded audio is sent directly to the ring buffer
                 const BaseType_t result = xRingbufferSend(asr.getRingBuffer(), buffer, bytesRead, portMAX_DELAY);
                 if (result != pdTRUE) {
-                    ESP_LOGE(TAG, "将录音数据发送到RingBuffer失败");
+                    ESP_LOGE(TAG, "Failed to send recording data to RingBuffer");
                 }
             }
         }
-        ESP_LOGI(TAG, "录音结束");
+        ESP_LOGI(TAG, "Recording ends")ing ends");
     }
 }

@@ -101,10 +101,10 @@ void eventCallback(WStype_t type, uint8_t* payload, size_t length)
     case WStype_ERROR:
         break;
     case WStype_CONNECTED:
-        ESP_LOGI(TAG, "websocket连接成功");
+        ESP_LOGI(TAG, "The websocket connection is successful")onnection is successful");
         break;
     case WStype_DISCONNECTED:
-        ESP_LOGI(TAG, "websocket断开连接");
+        ESP_LOGI(TAG, "websocket disconnect")nnect");
         break;
     case WStype_TEXT:
         {
@@ -188,7 +188,7 @@ void buildAudioOnlyRequest(uint8_t* audio, const size_t size, const bool lastPac
 
 void asr(uint8_t* buffer, const size_t size, const bool firstPacket, const bool lastPacket)
 {
-    ESP_LOGI(TAG, "开始语音识别, 音频长度: %d, fistPacket = %d, lastPacket = %d",
+    ESP_LOGI(TAG, "Start speech recognition, audio length: %d, fistPacket = %d, lastPacket = %d",
              size, firstPacket, lastPacket);
     if (firstPacket)
     {
@@ -204,7 +204,7 @@ void asr(uint8_t* buffer, const size_t size, const bool firstPacket, const bool 
         // The first packet is sent to the server and the identification task is started
         if (!client.sendBIN(requestBuilder.data(), requestBuilder.size()))
         {
-            ESP_LOGD(TAG, "发送语音识别请求第一个数据包失败");
+            ESP_LOGD(TAG, "Send the first packet to send the voice recognition request failed");
         }
         // Give loop an opportunity to execute and receive possible server-side data
         client.loop();
@@ -213,7 +213,7 @@ void asr(uint8_t* buffer, const size_t size, const bool firstPacket, const bool 
     buildAudioOnlyRequest(buffer, size, lastPacket);
     if (!client.sendBIN(requestBuilder.data(), requestBuilder.size()))
     {
-        ESP_LOGE(TAG, "发送语音识别音频数据包失败...");
+        ESP_LOGE(TAG, "Sending voice recognition audio packet failed...");
     }
     // Continue to give loop function a chance to execute
     client.loop();
@@ -241,7 +241,7 @@ void consumeRingBuffer(void* ptr)
         void* buffer = xRingbufferReceive(ringBuffer, &bytesRead, pdMS_TO_TICKS(100));
         if (buffer != nullptr)
         {
-            ESP_LOGI(TAG, "从RingBuffer读到音频数据，长度: %d", bytesRead);
+            ESP_LOGI(TAG, "Read audio data from RingBuffer, length: %d", bytesRead);
             auto* audioData = static_cast<uint8_t*>(buffer);
             asr(audioData, bytesRead, firstPacket, false);
             if (firstPacket)
@@ -288,13 +288,13 @@ void setup()
 
     WiFiClass::mode(WIFI_MODE_STA);
     WiFi.begin("ChinaNet-GdPt", "19910226");
-    ESP_LOGI(TAG, "正在联网");
+    ESP_LOGI(TAG, "Connecting to the Internet")ting to the Internet");
     while (WiFiClass::status() != WL_CONNECTED)
     {
         ESP_LOGI(TAG, ".");
         vTaskDelay(1000);
     }
-    ESP_LOGI(TAG, "联网成功");
+    ESP_LOGI(TAG, "Successful Internet connection")sful Internet connection");
 
     // The 4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW here needs to be replaced with your own access token
     client.setExtraHeaders("Authorization: Bearer; 4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW");
@@ -311,7 +311,7 @@ void loop()
     if (Serial.available() > 0)
     {
         Serial.readStringUntil('\n');
-        ESP_LOGI(TAG, "开始录音，请说话，持续时间5s...");
+        ESP_LOGI(TAG, "Start recording, please speak, lasting 5s...")ase speak, lasting 5s...");
         // Record 100 times, each time recording 50ms of audio
         for (int i = 0; i < 100; i++)
         {
@@ -326,10 +326,10 @@ void loop()
                 BaseType_t result = xRingbufferSend(ringBuffer, buffer, bytesRead, portMAX_DELAY);
                 if (result != pdTRUE)
                 {
-                    ESP_LOGE(TAG, "将录音数据发送到RingBuffer失败");
+                    ESP_LOGE(TAG, "Failed to send recording data to RingBuffer");
                 }
             }
         }
-        ESP_LOGI(TAG, "录音结束");
+        ESP_LOGI(TAG, "Recording ends")ing ends");
     }
 }

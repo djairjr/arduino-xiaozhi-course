@@ -31,7 +31,7 @@ void setup() {
   xTaskCreate(vPowerMonitorTask, "Power", 1024, nullptr, 1, nullptr);
   xTaskCreate(vWashingMachineTask, "Washing", 1024, nullptr, 2, nullptr);
 
-  Serial.println("洗衣机已就绪，请准备洗衣...");
+  Serial.println("The washing machine is ready, please prepare the laundry...")ne is ready, please prepare the laundry...");
 }
 
 void loop() {
@@ -45,10 +45,10 @@ void vDoorSensorTask(void *pvParameters) {
 
     // Whether the random simulation door is closed
     if (random(0, 2) == 1) {
-      Serial.println("洗衣机门已关闭");
+      Serial.println("Washing machine door closed")achine door closed");
       xEventGroupSetBits(xWashingEventGroup, DOOR_CLOSED);
     } else {
-      Serial.println("洗衣机门未关闭，请关闭门");
+      Serial.println("The washing machine door is not closed, please close the door")chine door is not closed, please close the door");
       xEventGroupClearBits(xWashingEventGroup, DOOR_CLOSED);
     }
   }
@@ -62,10 +62,10 @@ void vWaterSensorTask(void *pvParameters) {
 
     // Random simulation of whether the water level meets the requirements
     if (random(0, 2) == 1) {
-      Serial.println("水位已达到要求");
+      Serial.println("The water level has reached the requirements") level has reached the requirements");
       xEventGroupSetBits(xWashingEventGroup, WATER_READY);
     } else {
-      Serial.println("水位不足，正在进水...");
+      Serial.println("The water level is insufficient, water is inflowing...")l is insufficient, water is inflowing...");
       xEventGroupClearBits(xWashingEventGroup, WATER_READY);
     }
   }
@@ -79,10 +79,10 @@ void vPowerMonitorTask(void *pvParameters) {
 
     // Whether the random analog power supply is turned on
     if (random(0, 2) == 1) {
-      Serial.println("电源已接通");
+      Serial.println("The power supply is turned on")er supply is turned on");
       xEventGroupSetBits(xWashingEventGroup, POWER_ON);
     } else {
-      Serial.println("电源未接通，请检查电源...");
+      Serial.println("The power supply is not turned on, please check the power supply...") is not turned on, please check the power supply...");
       xEventGroupClearBits(xWashingEventGroup, POWER_ON);
     }
   }
@@ -104,16 +104,16 @@ void vWashingMachineTask(void *pvParameters) {
 
     // Check if all conditions are met
     if ((uxBits & waitBits) == waitBits) {
-      Serial.println("=== 开始洗衣程序 ===");
-      Serial.println("洗衣模式：标准");
+      Serial.println("=== Start the laundry program ===")undry program ===");
+      Serial.println("Laundry mode: Standard")ode: Standard");
       vTaskDelay(pdMS_TO_TICKS(1000));
-      Serial.println("洗涤中...");
+      Serial.println("Washing...")..");
       vTaskDelay(pdMS_TO_TICKS(1000));
-      Serial.println("漂洗中...");
+      Serial.println("Rinse...")");
       vTaskDelay(pdMS_TO_TICKS(1000));
-      Serial.println("脱水中...");
+      Serial.println("Dehydration...")ion...");
       vTaskDelay(pdMS_TO_TICKS(1000));
-      Serial.println("洗衣完成！");
+      Serial.println("Laundry is finished!") is finished!");
       Serial.println("===================");
     }
   }

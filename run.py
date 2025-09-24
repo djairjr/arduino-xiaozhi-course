@@ -46,8 +46,8 @@ def find_and_process_gitignores(root_dir):
 
 if __name__ == "__main__":
     # Set command line parameters
-    parser = argparse.ArgumentParser(description='递归处理文件夹中的所有.gitignore文件，删除包含cmake或config.h的行')
-    parser.add_argument('directory', help='要处理的根目录路径')
+    parser = argparse.ArgumentParser(description="Recursively process all .gitignore files in the folder, deleting lines containing cmake or config.h")
+    parser.add_argument('directory', help="The root directory path to process")
     
     args = parser.parse_args()
     find_and_process_gitignores(args.directory)

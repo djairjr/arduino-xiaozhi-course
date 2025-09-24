@@ -39,7 +39,7 @@ String CozeAgent::getBotId() {
 
 void CozeAgent::chat(const String &query) {
     reset();
-    ESP_LOGI(TAG, "发起对话: %s", query.c_str());
+    ESP_LOGI(TAG, "Start a conversation: %s", query.c_str());
     HTTPClient http;
     http.begin("https://api.coze.cn/v3/chat?conversation_id=" + getConversationId());
     // Here, the token behind Bearer is modified to your own Coze platform token, which can be obtained at https://www.coze.cn/open/oauth/pats
@@ -80,7 +80,7 @@ void CozeAgent::chat(const String &query) {
                     if (lastEvent == "event:conversation.message.delta" &&
                         line == "event:conversation.message.completed") {
                         http.end();
-                        ESP_LOGI(TAG, "Coze智能体调用结束");
+                        ESP_LOGI(TAG, "Coze agent call ends")ll ends");
                         ESP_LOGI(TAG, "command: %s", _command.c_str());
                         ESP_LOGI(TAG, "params: %s", _params.c_str());
                         ESP_LOGI(TAG, "response: %s", _response.c_str());
@@ -97,7 +97,7 @@ void CozeAgent::chat(const String &query) {
                     JsonDocument doc;
                     DeserializationError error = deserializeJson(doc, response);
                     if (error) {
-                        ESP_LOGE(TAG, "json反序列化失败: %s", error.c_str());
+                        ESP_LOGE(TAG, "json deserialization failed: %s", error.c_str());
                         continue;
                     }
                     if (doc["content"].is<String>() && doc["type"] == "answer") {
@@ -109,7 +109,7 @@ void CozeAgent::chat(const String &query) {
             }
             vTaskDelay(pdMS_TO_TICKS(1));
         }
-        ESP_LOGI(TAG, "Coze智能体调用结束");
+        ESP_LOGI(TAG, "Coze agent call ends")ll ends");
         http.end();
     }
 }
@@ -152,7 +152,7 @@ void CozeAgent::appendField(const String &delta) {
 // Process incremental shard data
 void CozeAgent::processDelta(const String &delta) {
     if (delta.isEmpty()) return;
-    ESP_LOGV(TAG, "处理智能体增量消息: %s", delta.c_str());
+    ESP_LOGV(TAG, "Processing agent incremental messages: %s", delta.c_str());
     // If the new shard does not contain a separator, no state transfer is required
     const int index = delta.indexOf(DELIMITER);
     if (index < 0) {

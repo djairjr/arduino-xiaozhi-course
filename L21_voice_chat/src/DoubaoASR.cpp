@@ -111,10 +111,10 @@ void DoubaoASR::eventCallback(const WStype_t type, const uint8_t *payload, size_
         case WStype_ERROR:
             break;
         case WStype_CONNECTED:
-            ESP_LOGI(TAG, "websocket连接成功");
+            ESP_LOGI(TAG, "The websocket connection is successful")onnection is successful");
             break;
         case WStype_DISCONNECTED:
-            ESP_LOGI(TAG, "websocket断开连接");
+            ESP_LOGI(TAG, "websocket disconnect")nnect");
             break;
         case WStype_TEXT: {
             break;
@@ -191,7 +191,7 @@ void DoubaoASR::buildAudioOnlyRequest(uint8_t *audio, const size_t size, const b
 }
 
 void DoubaoASR::asr(uint8_t *buffer, const size_t size, const bool firstPacket, const bool lastPacket) {
-    ESP_LOGV(TAG, "开始语音识别, 音频长度: %d, fistPacket = %d, lastPacket = %d",
+    ESP_LOGV(TAG, "Start speech recognition, audio length: %d, fistPacket = %d, lastPacket = %d",
              size, firstPacket, lastPacket);
     if (firstPacket) {
         xEventGroupClearBits(_eventGroup, TASK_COMPLETED_EVENT);
@@ -203,7 +203,7 @@ void DoubaoASR::asr(uint8_t *buffer, const size_t size, const bool firstPacket, 
         buildFullClientRequest();
         // The first packet is sent to the server and the identification task is started
         if (!sendBIN(_requestBuilder.data(), _requestBuilder.size())) {
-            ESP_LOGD(TAG, "发送语音识别请求第一个数据包失败");
+            ESP_LOGD(TAG, "Send the first packet to send the voice recognition request failed");
         }
         // Give loop an opportunity to execute and receive possible server-side data
         loop();
@@ -211,7 +211,7 @@ void DoubaoASR::asr(uint8_t *buffer, const size_t size, const bool firstPacket, 
     // Build voice packets
     buildAudioOnlyRequest(buffer, size, lastPacket);
     if (!sendBIN(_requestBuilder.data(), _requestBuilder.size())) {
-        ESP_LOGE(TAG, "发送语音识别音频数据包失败...");
+        ESP_LOGE(TAG, "Sending voice recognition audio packet failed...");
     }
     // Continue to give loop function a chance to execute
     loop();
@@ -234,7 +234,7 @@ void DoubaoASR::consumeRingBuffer(void *ptr) {
     while (true) {
         void *buffer = xRingbufferReceive(_ringBuffer, &bytesRead, pdMS_TO_TICKS(100));
         if (buffer != nullptr) {
-            ESP_LOGV(TAG, "从RingBuffer读到音频数据，长度: %d", bytesRead);
+            ESP_LOGV(TAG, "Read audio data from RingBuffer, length: %d", bytesRead);
             auto *audioData = static_cast<uint8_t *>(buffer);
             asr(audioData, bytesRead, firstPacket, false);
             if (firstPacket) {

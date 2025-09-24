@@ -20,7 +20,7 @@ TaskHandle_t chefTaskHandle;
 
 // Dishes list
 const char* dishes[] = {
-    "宫保鸡丁", "鱼香肉丝", "麻婆豆腐", "糖醋排骨", "回锅肉"
+    "Kung Pao Chicken", "Fish-flavored shredded pork", "Mapo tofu", "Sweet and Sour Ribs", "Refried meat"
 };
 
 // Customer Tasks - Producer
@@ -37,23 +37,23 @@ void customerTask(void* pvParameters)
         newOrder.isVip = (random(0, 10) >= 7); // 30% probability is VIP
         newOrder.orderTime = millis();
 
-        Serial.print("顾客 #");
+        Serial.print("customer #")er #");
         Serial.print(newOrder.customerId);
-        Serial.print(" 点了: ");
+        Serial.print("Clicked:"):");
         Serial.print(newOrder.dishName);
         Serial.print(", VIP: ");
-        Serial.println(newOrder.isVip ? "是" : "否");
+        Serial.println(newOrder.isVip ? "yes" : "no");
 
         // Decide the location of the queue based on whether the VIP is used.
         if (newOrder.isVip)
         {
             xQueueSendToFront(orderQueue, &newOrder, portMAX_DELAY);
-            Serial.println("VIP订单已优先处理");
+            Serial.println("VIP orders have been processed first")ave been processed first");
         }
         else
         {
             xQueueSendToBack(orderQueue, &newOrder, portMAX_DELAY);
-            Serial.println("普通订单已加入队列");
+            Serial.println("Ordinary orders have been added to the queue")ders have been added to the queue");
         }
 
         // Wait for the next customer (1-5 seconds)
@@ -71,17 +71,17 @@ void chefTask(void* pvParameters)
         // Receive orders from queue
         if (xQueueReceive(orderQueue, &currentOrder, portMAX_DELAY) == pdPASS)
         {
-            Serial.print("厨师开始制作: ");
+            Serial.print("The chef starts making:")tarts making:");
             Serial.print(currentOrder.dishName);
-            Serial.print(" 给顾客 #");
+            Serial.print("To the customer #")ustomer #");
             Serial.println(currentOrder.customerId);
 
             // Simulated cooking time (2-4 seconds)
             vTaskDelay(pdMS_TO_TICKS(random(2000, 4000)));
 
-            Serial.print("厨师完成了顾客 #");
+            Serial.print("The chef completes the customer #")mpletes the customer #");
             Serial.print(currentOrder.customerId);
-            Serial.print(" 点的: ");
+            Serial.print("Clicked:"):");
             Serial.println(currentOrder.dishName);
         }
     }
@@ -101,7 +101,7 @@ void setup()
     }
     else
     {
-        Serial.println("创建队列失败!");
+        Serial.println("Failed to create a queue!") create a queue!");
     }
 }
 

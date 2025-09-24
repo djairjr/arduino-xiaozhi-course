@@ -10,18 +10,18 @@ void setup()
     WiFiClass::mode(WIFI_MODE_STA);
     // Change the WiFi name and password here to your own
     WiFi.begin("ChinaNet-GdPt", "19910226");
-    ESP_LOGI(TAG, "正在联网");
+    ESP_LOGI(TAG, "Connecting to the Internet")ting to the Internet");
     while (WiFiClass::status() != WL_CONNECTED)
     {
         ESP_LOGI(TAG, ".");
         vTaskDelay(1000);
     }
-    ESP_LOGI(TAG, "联网成功");
+    ESP_LOGI(TAG, "Successful Internet connection")sful Internet connection");
 }
 
 void chat(const String& botId, const String& query, const String& conversationId)
 {
-    ESP_LOGI(TAG, "发起对话: %s", query.c_str());
+    ESP_LOGI(TAG, "Start a conversation: %s", query.c_str());
     HTTPClient http;
     http.begin("https://api.coze.cn/v3/chat?conversation_id=" + conversationId);
     // Here, the token behind Bearer is modified to your own Coze platform token, which can be obtained at https://www.coze.cn/open/oauth/pats
@@ -64,7 +64,7 @@ void chat(const String& botId, const String& query, const String& conversationId
                     if (lastEvent == "event:conversation.message.delta" &&
                         line == "event:conversation.message.completed")
                     {
-                        ESP_LOGI(TAG, "Coze智能体调用结束");
+                        ESP_LOGI(TAG, "Coze agent call ends")ll ends");
                         http.end();
                         return;
                     }
@@ -77,7 +77,7 @@ void chat(const String& botId, const String& query, const String& conversationId
                     DeserializationError error = deserializeJson(doc, response);
                     if (error)
                     {
-                        ESP_LOGE(TAG, "json反序列化失败: %s", error.c_str());
+                        ESP_LOGE(TAG, "json deserialization failed: %s", error.c_str());
                         continue;
                     }
                     if (doc["content"].is<String>() && doc["type"] == "answer")
@@ -89,7 +89,7 @@ void chat(const String& botId, const String& query, const String& conversationId
                 }
             }
         }
-        ESP_LOGI(TAG, "Coze智能体调用结束");
+        ESP_LOGI(TAG, "Coze agent call ends")ll ends");
         http.end();
     }
 }

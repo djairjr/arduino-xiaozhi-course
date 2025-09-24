@@ -59,13 +59,13 @@ void parseResponse(const uint8_t* response)
                     memcpy(task.data, payload, payloadSize);
                     if (xQueueSend(playAudioQueue, &task, portMAX_DELAY) != pdPASS)
                     {
-                        ESP_LOGE(TAG, "发送音频播放任务到队列失败: %d", task.length);
+                        ESP_LOGE(TAG, "Failed to send audio playback task to queue: %d", task.length);
                         free(task.data); // If the send to the queue fails, the producer is responsible for retrieving the memory.
                     }
                 }
                 if (sequenceNumber < 0)
                 {
-                    ESP_LOGD(TAG, "语音合成任务结束");
+                    ESP_LOGD(TAG, "Voice synthesis task ends");
                     xSemaphoreGive(taskFinished);
                 }
             }
@@ -77,7 +77,7 @@ void parseResponse(const uint8_t* response)
             const uint8_t errorCode = readInt32(payload);
             const uint8_t messageSize = readInt32(payload + 4);
             const unsigned char* errMessage = payload + 8;
-            ESP_LOGD(TAG, "语音合成失败, code: %d, 原因: %s", errorCode, String(errMessage, messageSize).c_str());
+            ESP_LOGD(TAG, "Speech synthesis failed, code: %d, reason: %s", errorCode, String(errMessage, messageSize).c_str());
             xSemaphoreGive(taskFinished);
             break;
         }
@@ -133,7 +133,7 @@ String buildFullClientRequest(const String& text)
 
 void tts(const String& text)
 {
-    ESP_LOGD(TAG, "开始语音合成: %s", text.c_str());
+    ESP_LOGD(TAG, "Start speech synthesis: %s", text.c_str());
     // Wait for the websocket to establish a connection
     while (!client.isConnected())
     {
@@ -163,7 +163,7 @@ void tts(const String& text)
 
     if (!client.sendBIN(clientRequest.data(), clientRequest.size()))
     {
-        ESP_LOGE(TAG, "发送语音合成请求数据包失败: %s", text.c_str());
+        ESP_LOGE(TAG, "Failed to send voice synthesis request packet: %s", text.c_str());
         xSemaphoreGive(taskFinished);
         return;
     }
@@ -234,13 +234,13 @@ void setup()
     WiFiClass::mode(WIFI_MODE_STA);
     // Please change it to your own wifi account and password
     WiFi.begin("ChinaNet-GdPt", "19910226");
-    ESP_LOGI(TAG, "正在联网");
+    ESP_LOGI(TAG, "Connecting to the Internet")ting to the Internet");
     while (WiFiClass::status() != WL_CONNECTED)
     {
         ESP_LOGI(TAG, ".");
         vTaskDelay(1000);
     }
-    ESP_LOGI(TAG, "联网成功");
+    ESP_LOGI(TAG, "Successful Internet connection")sful Internet connection");
 
     client.setExtraHeaders("Authorization: Bearer; 4YOzBPBOFizGvhWbqZroVA3fTXQbeWOW");
     client.beginSSL("openspeech.bytedance.com", 443, "/api/v1/tts/ws_binary");
@@ -255,9 +255,9 @@ void loop()
     if (Serial.available())
     {
         Serial.readStringUntil('\n');
-        ESP_LOGI(TAG, "开始语音合成");
-        tts("暮色漫过青瓦时，檐角铜铃晃出细碎的光。风掠过老槐树的年轮，把去年夹在诗集里的银杏叶吹成黄蝶，"
-            "扑簌簌落进旧藤椅的褶皱 —— 那里还留着你晒暖的温度。露水在草尖凝结成星子，远处炊烟正牵着暮色往山坳里走，"
-            "像极了你走时系在篱笆上的蓝布条，在记忆里飘成一弯瘦月。");
+        ESP_LOGI(TAG, "Start speech synthesis")eech synthesis");
+        tts("As the dusk passed through the blue tiles, the copper bells at the eaves shook out fine light. The wind blew past the rings of the old locust tree, blowing the ginkgo leaves sandwiched in the poetry collection last year into yellow butterflies."
+            "It fell into the folds of the old rattan chair - there was still the warm temperature of your sun. The dew condenses into stars at the tip of the grass, and the smoke from the cooking stove is leading the twilight into the valley."
+            "It's like the blue cloth strips tied to the fence when you walk, floating into a thin moon in your memory.");
     }
 }

@@ -7,10 +7,10 @@ SemaphoreHandle_t semaphore;
 
 void count(void* pvParameters)
 {
-    Serial.println("开始报数...");
+    Serial.println("Start counting...")nting...");
     for (int i = 1; i <= 10; i++)
     {
-        Serial.printf("当前报数：%d\n", i);
+        Serial.printf("Current report: %d\n", i);
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
     xSemaphoreGive(semaphore);  // The semaphore is released after the report. Only when the number is released here can the setup function take successfully.
@@ -32,7 +32,7 @@ void setup()
 
     // Wait for the semaphore to be obtained (the semaphore will be released only if the previous task count is completed), if it cannot be obtained, it will be waiting.
     xSemaphoreTake(semaphore, portMAX_DELAY);
-    Serial.println("成功获取信号量");
+    Serial.println("Acquisition of semaphore successfully")on of semaphore successfully");
 }
 
 void loop()

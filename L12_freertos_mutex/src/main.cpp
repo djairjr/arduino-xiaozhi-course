@@ -7,7 +7,7 @@ SemaphoreHandle_t mutex;
 
 void count1(void* ptr)
 {
-    Serial.println("任务1开始计数");
+    Serial.println("Task 1 starts counting")arts counting");
     for (int i = 0; i < 10000; i++)
     {
         // if (xSemaphoreTakeRecursive(mutex, portMAX_DELAY) == pdTRUE)
@@ -23,7 +23,7 @@ void count1(void* ptr)
 
 void count2(void* ptr)
 {
-    Serial.println("任务2开始计数");
+    Serial.println("Task 2 starts counting")arts counting");
     for (int i = 0; i < 10000; i++)
     {
         // if (xSemaphoreTakeRecursive(mutex, portMAX_DELAY) == pdTRUE)
