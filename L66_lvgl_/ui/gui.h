@@ -21,6 +21,8 @@ LV_FONT_DECLARE(AlibabaPuHuiTi_Regular_16)
 #define LV_CUSTOM_SYMBOL_RESET         "\xEE\x99\x88" // 重置
 #define LV_CUSTOM_SYMBOL_LOADING       "\xEE\x98\xBA" // 加载
 
+#define STATUS_BAR_HEIGHT 25
+
 typedef struct {
     lv_obj_t *status_bar;
     lv_obj_t *status_bar_time_label;
@@ -31,15 +33,22 @@ typedef struct {
     lv_obj_t *screen_home_speak_button;
     lv_obj_t *screen_home_speak_button_label;
 
+    lv_obj_t *screen_dropdown;
+    lv_obj_t *screen_dropdown_cont;
+    lv_obj_t *screen_dropdown_volume_image;
+    lv_obj_t *screen_dropdown_volume_slider;
+    lv_obj_t *screen_dropdown_brightness_image;
+    lv_obj_t *screen_dropdown_brightness_slider;
+
     lv_obj_t *screen_settings;
     lv_obj_t *menu;
     lv_obj_t *menu_main_page;
     lv_obj_t *menu_main_page_seperator1;
     lv_obj_t *menu_main_page_section_main;
     lv_obj_t *menu_main_page_label_network;
-    lv_obj_t *menu_main_page_label_volume;
-    lv_obj_t *menu_main_page_label_brightness;
     lv_obj_t *menu_main_page_label_llm;
+    lv_obj_t *menu_main_page_label_about;
+    lv_obj_t *menu_main_page_label_reset;
 
     lv_obj_t *menu_network_page;
     lv_obj_t *menu_network_page_cont1;
@@ -53,14 +62,6 @@ typedef struct {
     lv_obj_t *menu_network_page_wifi_list_loading_image;
     lv_anim_t menu_network_page_wifi_list_loading_image_anim;
 
-    lv_obj_t *menu_volume_page;
-    lv_obj_t *menu_volume_page_cont;
-    lv_obj_t *menu_volume_page_volume_label;
-    lv_obj_t *menu_volume_page_volume_slider;
-
-    lv_obj_t *menu_brightness_page;
-    lv_obj_t *menu_llm_page;
-
     lv_obj_t *menu_network_page_keyboard_mask; // 键盘遮罩层
     lv_obj_t *menu_network_page_password_dialog;
     lv_obj_t *menu_network_page_password_tips_label; // WiFi密码输入框
@@ -69,10 +70,27 @@ typedef struct {
     lv_obj_t *menu_network_page_password_confirm_button;
     lv_obj_t *menu_network_page_password_cancel_button;
 
+    lv_obj_t *menu_llm_page;
+    lv_obj_t *menu_llm_page_cont1;
+    lv_obj_t *menu_llm_page_voice_label;
+    lv_obj_t *menu_llm_page_voice_dropdown;
+    lv_obj_t *menu_llm_page_cont2;
+    lv_obj_t *menu_llm_page_speed_label;
+    lv_obj_t *menu_llm_page_speed_slider;
+    lv_obj_t *menu_llm_page_cont3;
+    lv_obj_t *menu_llm_page_persona_label;
+    lv_obj_t *menu_llm_page_persona_dropdown;
+
     lv_obj_t *menu_main_page_seperator2;
     lv_obj_t *menu_main_page_section_about;
-    lv_obj_t *menu_main_page_label_reset;
-    lv_obj_t *menu_main_page_label_about;
+
+    lv_obj_t *menu_page_about;
+    lv_obj_t *menu_page_about_label1;
+    lv_obj_t *menu_page_about_label2;
+
+    lv_obj_t *menu_page_reset;
+    lv_obj_t *menu_page_reset_button;
+    lv_obj_t *menu_page_reset_button_label;
 } lv_screens_info;
 
 extern lv_screens_info lv_ui;

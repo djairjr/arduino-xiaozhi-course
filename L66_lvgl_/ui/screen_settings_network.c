@@ -123,6 +123,7 @@ void setup_network_setting(lv_screens_info *ui) {
 
     ui->menu_network_page_password_textarea = lv_textarea_create(ui->menu_network_page_password_dialog);
     lv_obj_set_size(ui->menu_network_page_password_textarea, lv_pct(95), 35);
+    lv_obj_set_style_border_width(ui->menu_network_page_password_textarea, 0, 0);
     lv_textarea_set_one_line(ui->menu_network_page_password_textarea, true);
     lv_obj_remove_flag(ui->menu_network_page_password_textarea, LV_OBJ_FLAG_SCROLLABLE);
 
