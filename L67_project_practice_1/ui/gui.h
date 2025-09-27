@@ -56,6 +56,7 @@ typedef struct {
     lv_obj_t *screen_settings;
     lv_obj_t *menu;
     lv_obj_t *menu_main_page;
+    lv_style_t menu_item_style;
     lv_obj_t *menu_main_page_seperator1;
     lv_obj_t *menu_main_page_section_main;
     lv_obj_t *menu_main_page_label_network;
