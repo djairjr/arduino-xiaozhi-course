@@ -1,29 +1,29 @@
 #include <Arduino.h>
 #include <queue.h>
 
-// 定义订单结构体
+// Define order structure
 typedef struct
 {
-    int customerId; // 顾客ID
-    String dishName; // 菜品名称
-    bool isVip; // 是否是VIP
-    unsigned long orderTime; // 下单时间
+    int customerId; // Customer ID
+    String dishName; // Dish name
+    bool isVip; // Is it a VIP or not
+    unsigned long orderTime; // Order time
 } Order;
 
-// 创建队列
+// Create a queue
 QueueHandle_t orderQueue;
 
-// 顾客下单任务
+// Customer order task
 TaskHandle_t customerTaskHandle;
-// 厨师做菜任务
+// Chef cooking task
 TaskHandle_t chefTaskHandle;
 
-// 菜品列表
+// Dishes list
 const char* dishes[] = {
-    "宫保鸡丁", "鱼香肉丝", "麻婆豆腐", "糖醋排骨", "回锅肉"
+    "Kung Pao Chicken", "Fish-flavored shredded pork", "Mapo tofu", "Sweet and Sour Ribs", "Refried meat"
 };
 
-// 顾客任务 - 生产者
+// Customer Tasks - Producer
 void customerTask(void* pvParameters)
 {
     Order newOrder;
@@ -31,57 +31,57 @@ void customerTask(void* pvParameters)
 
     while (true)
     {
-        // 随机生成订单
+        // Randomly generated orders
         newOrder.customerId = ++customerCount;
         newOrder.dishName = dishes[random(0, 5)];
-        newOrder.isVip = (random(0, 10) >= 7); // 30%概率是VIP
+        newOrder.isVip = (random(0, 10) >= 7); // 30% probability is VIP
         newOrder.orderTime = millis();
 
-        Serial.print("顾客 #");
+        Serial.print("customer #")er #");
         Serial.print(newOrder.customerId);
-        Serial.print(" 点了: ");
+        Serial.print("Clicked:"):");
         Serial.print(newOrder.dishName);
         Serial.print(", VIP: ");
-        Serial.println(newOrder.isVip ? "是" : "否");
+        Serial.println(newOrder.isVip ? "yes" : "no");
 
-        // 根据是否VIP决定放入队列的位置
+        // Decide the location of the queue based on whether the VIP is used.
         if (newOrder.isVip)
         {
             xQueueSendToFront(orderQueue, &newOrder, portMAX_DELAY);
-            Serial.println("VIP订单已优先处理");
+            Serial.println("VIP orders have been processed first")ave been processed first");
         }
         else
         {
             xQueueSendToBack(orderQueue, &newOrder, portMAX_DELAY);
-            Serial.println("普通订单已加入队列");
+            Serial.println("Ordinary orders have been added to the queue")ders have been added to the queue");
         }
 
-        // 等待下一位顾客 (1-5秒)
+        // Wait for the next customer (1-5 seconds)
         vTaskDelay(pdMS_TO_TICKS(random(1000, 5000)));
     }
 }
 
-// 厨师任务 - 消费者
+// Chef Tasks - Consumers
 void chefTask(void* pvParameters)
 {
     Order currentOrder;
 
     while (true)
     {
-        // 从队列接收订单
+        // Receive orders from queue
         if (xQueueReceive(orderQueue, &currentOrder, portMAX_DELAY) == pdPASS)
         {
-            Serial.print("厨师开始制作: ");
+            Serial.print("The chef starts making:")tarts making:");
             Serial.print(currentOrder.dishName);
-            Serial.print(" 给顾客 #");
+            Serial.print("To the customer #")ustomer #");
             Serial.println(currentOrder.customerId);
 
-            // 模拟做菜时间 (2-4秒)
+            // Simulated cooking time (2-4 seconds)
             vTaskDelay(pdMS_TO_TICKS(random(2000, 4000)));
 
-            Serial.print("厨师完成了顾客 #");
+            Serial.print("The chef completes the customer #")mpletes the customer #");
             Serial.print(currentOrder.customerId);
-            Serial.print(" 点的: ");
+            Serial.print("Clicked:"):");
             Serial.println(currentOrder.dishName);
         }
     }
@@ -91,17 +91,17 @@ void setup()
 {
     Serial.begin(9600);
     randomSeed(millis());
-    // 创建订单队列，最多存储10个订单
+    // Create an order queue to store up to 10 orders
     orderQueue = xQueueCreate(10, sizeof(Order));
     if (orderQueue != nullptr)
     {
-        // 创建任务
+        // Create a task
         xTaskCreate(customerTask, "Customer", 2048, nullptr, 1, &customerTaskHandle);
         xTaskCreate(chefTask, "Chef", 2048, nullptr, 2, &chefTaskHandle);
     }
     else
     {
-        Serial.println("创建队列失败!");
+        Serial.println("Failed to create a queue!") create a queue!");
     }
 }
 
