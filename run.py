@@ -2,7 +2,11 @@ import os
 import argparse
 
 def process_gitignore(file_path):
+<<<<<<< HEAD
     """Process a single .gitignore file, deleting lines containing 'cmake' or 'config.h'"""
+=======
+    # # """ Process a single .gitignore file, deleting lines containing 'cmake' or 'config.h'""
+>>>>>>> aa37e20ed286b71ae060ecd39c107b7b1171a68e
     try:
         # Read file content
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -10,8 +14,8 @@ def process_gitignore(file_path):
         
         # Filter out lines containing 'cmake/' or 'config.h' (case insensitive)
         new_lines = [
-            line for line in lines 
-            if 'cmake/' not in line.lower() 
+            line for line in lines
+            if 'cmake/' not in line.lower()
             and 'config.h' not in line.lower()
         ]
         
@@ -19,16 +23,28 @@ def process_gitignore(file_path):
         if len(new_lines) != len(lines):
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.writelines(new_lines)
+<<<<<<< HEAD
             print(f"Processed: {file_path}")
+=======
+            print(f"processed: {file_path}")
+>>>>>>> aa37e20ed286b71ae060ecd39c107b7b1171a68e
             return True
         return False
         
     except Exception as e:
+<<<<<<< HEAD
         print(f"An error occurred while processing file {file_path}: {str(e)}")
         return False
 
 def find_and_process_gitignores(root_dir):
     """Recursively find and process all .gitignore files"""
+=======
+        print(f"Error processing file {file_path}: {str(e)}")
+        return False
+
+def find_and_process_gitignores(root_dir):
+    # """Recursively find and process all .gitignore files"""
+>>>>>>> aa37e20ed286b71ae060ecd39c107b7b1171a68e
     if not os.path.isdir(root_dir):
         print(f"Error: {root_dir} is not a valid directory")
         return
@@ -46,8 +62,13 @@ def find_and_process_gitignores(root_dir):
 
 if __name__ == "__main__":
     # Set command line parameters
+<<<<<<< HEAD
     parser = argparse.ArgumentParser(description='Recursively process all .gitignore files in the folder, deleting lines containing cmake or config.h')
     parser.add_argument('directory', help='The root directory path to process')
+=======
+    parser = argparse.ArgumentParser(description="Recursively process all .gitignore files in the folder, deleting lines containing cmake or config.h")
+    parser.add_argument('directory', help="The root directory path to process")
+>>>>>>> aa37e20ed286b71ae060ecd39c107b7b1171a68e
     
     args = parser.parse_args()
     find_and_process_gitignores(args.directory)

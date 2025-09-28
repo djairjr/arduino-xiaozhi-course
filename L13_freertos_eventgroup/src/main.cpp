@@ -1,7 +1,11 @@
 #include <Arduino.h>
 #include <event_groups.h>
 
+<<<<<<< HEAD
 // Define some event bits during washing machine washing
+=======
+// Define some event bits during washing machine
+>>>>>>> aa37e20ed286b71ae060ecd39c107b7b1171a68e
 #define DOOR_CLOSED   (1 << 0)  // Indicates that the washing machine door is closed
 #define WATER_READY   (1 << 1)  // Indicates whether the water level meets the conditions
 #define POWER_ON      (1 << 2)  // Indicates that the power supply is turned on
@@ -74,7 +78,11 @@ void vWaterSensorTask(void *pvParameters) {
 // Power monitoring tasks
 void vPowerMonitorTask(void *pvParameters) {
   while (true) {
+<<<<<<< HEAD
     // Simulate power supply status changes
+=======
+    // Analog power supply state changes
+>>>>>>> aa37e20ed286b71ae060ecd39c107b7b1171a68e
     vTaskDelay(pdMS_TO_TICKS(2000));
 
     // Whether the random analog power supply is turned on

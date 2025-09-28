@@ -84,7 +84,11 @@ void CozeAgent::chat(const String &query) {
                         ESP_LOGI(TAG, "command: %s", _command.c_str());
                         ESP_LOGI(TAG, "params: %s", _params.c_str());
                         ESP_LOGI(TAG, "response: %s", _response.c_str());
+<<<<<<< HEAD
                         // If there is still unsynthesised audio data, continue to synthesize the voice
+=======
+                        // If there is still unsynthesised audio data, continue to synthesize voice
+>>>>>>> aa37e20ed286b71ae060ecd39c107b7b1171a68e
                         if (!_ttsBuffer.isEmpty()) {
                             _tts->tts(_ttsBuffer, true);
                         }

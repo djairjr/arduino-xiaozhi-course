@@ -13,7 +13,11 @@ void count(void* pvParameters)
         Serial.printf("Current report: %d\n", i);
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
+<<<<<<< HEAD
     xSemaphoreGive(semaphore);  // The semaphore is released after the report is released. Only when the setup function is released can the setup function succeed.
+=======
+    xSemaphoreGive(semaphore);  // The semaphore is released after the report. Only when the number is released here can the setup function take successfully.
+>>>>>>> aa37e20ed286b71ae060ecd39c107b7b1171a68e
     vTaskDelete(nullptr);
 }
 

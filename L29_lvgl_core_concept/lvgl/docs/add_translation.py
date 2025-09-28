@@ -14,6 +14,7 @@ URL_BASE = {
     "zh_CN": "https://lvgl.100ask.net/",
     "en": "https://docs.lvgl.io/"
 }
+"""}
 """
 
 LANGUAGE =  ':link_to_translation:`zh_CN:[Chinese]`\t'  + \
